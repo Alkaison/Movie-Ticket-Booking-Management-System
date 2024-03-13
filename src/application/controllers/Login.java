@@ -31,7 +31,7 @@ public class Login {
 	@FXML
 	private Button btnLogin;
 
-	public void login(ActionEvent e) {
+	public void login(ActionEvent event) {
 		String emailAddress = inputLoginEmailField.getText();
 		String password = inputLoginPasswordField.getText();
 

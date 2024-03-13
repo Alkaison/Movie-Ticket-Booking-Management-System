@@ -37,7 +37,7 @@
                   <Font name="Impact" size="36.0" />
                </font>
             </Label>
-            <TextField fx:id="inputLoginEmailField" layoutX="50.4" layoutY="210.0" prefHeight="40.0" promptText="ganeshmaurya@gmail.com" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="40.0" />
+            <TextField fx:id="inputLoginEmailField" layoutX="50.4" layoutY="210.0" prefHeight="40.0" promptText="ganeshmaurya@gmail.com" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
             <Label layoutX="50.4" layoutY="178.0" text="Email Address" textFill="WHITE" AnchorPane.leftAnchor="50.0">
                <font>
                   <Font name="Calibri" size="24.0" />
@@ -48,7 +48,7 @@
                   <Font name="Calibri" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btnLogin" layoutX="50.4" layoutY="407.0" lineSpacing="1.0" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="89.0" text="Login" textAlignment="CENTER" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="40.0">
+            <Button fx:id="btnLogin" layoutX="50.4" layoutY="407.0" lineSpacing="1.0" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="89.0" text="Login" textAlignment="CENTER" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.0">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
@@ -56,7 +56,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <PasswordField fx:id="inputLoginPasswordField" layoutX="50.4" layoutY="305.0" prefHeight="40.0" promptText="********" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="40.0" />
+            <PasswordField fx:id="inputLoginPasswordField" layoutX="50.4" layoutY="305.0" prefHeight="40.0" promptText="********" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.0" />
             <Hyperlink layoutX="48.0" layoutY="367.0" onAction="#forgetPassword" text="Forgot Password?" textFill="#65aefd" AnchorPane.leftAnchor="48.0">
                <font>
                   <Font size="16.0" />

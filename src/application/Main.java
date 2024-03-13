@@ -31,6 +31,7 @@ public class Main extends Application {
 			// minimum width and height for stage window
 			primaryStage.setMinWidth(1200);
 			primaryStage.setMinHeight(700);
+			// primaryStage.setMaximized(true);
 
 			// set scene and start application
 			primaryStage.setScene(scene);
