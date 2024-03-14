@@ -37,8 +37,16 @@ public class ForgotPassword {
 		System.out.println("Sending OTP");
 	}
 
-	public void verifyOTP(ActionEvent event) {
+	public void verifyOTP(ActionEvent event) throws IOException {
 		System.out.println("Verifing OTP");
+
+		// set to Update Password screen
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/UpdatePassword.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	public void goToLoginPage(ActionEvent event) throws IOException {
