@@ -9,31 +9,37 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class UpdatePassword {
+public class SignUp {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 
 	@FXML
-	private AnchorPane updatePasswordContainer;
+	private AnchorPane signUpFormContainer;
 
 	@FXML
-	private PasswordField inputUpdatePasswordField;
+	private TextField inputSignUpFullNameField;
 
 	@FXML
-	private PasswordField inputUpdatePasswordConfirmField;
+	private TextField inputSignUpEmailAddressField;
 
 	@FXML
-	private Button btnUpdatePassword;
+	private Button btnSignUp;
 
-	public void updateUserPassword(ActionEvent event) throws IOException {
-		System.out.println("Updated Password!");
+	public void goToSignVerification(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/SignUpVerification.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
 
-		// set to login screen
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void goToLoginScreen(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);

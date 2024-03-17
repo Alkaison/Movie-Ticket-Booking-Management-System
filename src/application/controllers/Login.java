@@ -31,13 +31,20 @@ public class Login {
 	@FXML
 	private Button btnLogin;
 
-	public void login(ActionEvent event) {
+	public void login(ActionEvent event) throws IOException {
 		String emailAddress = inputLoginEmailField.getText();
 		String password = inputLoginPasswordField.getText();
 
 		System.out.println("Login Button Clicked");
 		System.out.println("Email Address: " + emailAddress);
 		System.out.println("Password: " + password);
+
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/Dashboard.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	public void signUp(ActionEvent event) throws IOException {

@@ -4,6 +4,8 @@ module MovieTicketBookingSystem {
 	requires java.desktop;
 	requires javafx.graphics;
 	requires javafx.base;
+	requires java.sql;
+	requires org.xerial.sqlitejdbc;
 
 	opens application to javafx.graphics, javafx.fxml;
 	opens application.controllers to javafx.fxml;
