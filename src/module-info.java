@@ -6,7 +6,10 @@ module MovieTicketBookingSystem {
 	requires javafx.base;
 	requires java.sql;
 	requires org.xerial.sqlitejdbc;
+	requires com.google.gson;
 
 	opens application to javafx.graphics, javafx.fxml;
 	opens application.controllers to javafx.fxml;
+	opens application.utils to com.google.gson;
+
 }

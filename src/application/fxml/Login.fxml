@@ -43,12 +43,12 @@
                   <Font name="Calibri" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="50.4" layoutY="274.0" text="Password" textFill="WHITE" AnchorPane.leftAnchor="50.4">
+            <Label layoutX="50.4" layoutY="278.0" text="Password" textFill="WHITE" AnchorPane.leftAnchor="50.4">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btnLogin" layoutX="50.4" layoutY="407.0" lineSpacing="1.0" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="89.0" text="Login" textAlignment="CENTER" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.0">
+            <Button fx:id="btnLogin" layoutX="50.4" layoutY="418.0" lineSpacing="1.0" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="89.0" text="Login" textAlignment="CENTER" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.39999999999998">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
@@ -56,22 +56,37 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <PasswordField fx:id="inputLoginPasswordField" layoutX="50.4" layoutY="305.0" prefHeight="40.0" promptText="********" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.0" />
-            <Hyperlink layoutX="48.0" layoutY="367.0" onAction="#forgetPassword" text="Forgot Password?" textFill="#65aefd" AnchorPane.leftAnchor="48.0">
+            <PasswordField fx:id="inputLoginPasswordField" layoutX="50.4" layoutY="309.0" prefHeight="40.0" promptText="********" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.39999999999998" />
+            <Hyperlink layoutX="48.0" layoutY="383.0" onAction="#forgetPassword" text="Forgot Password?" textFill="#65aefd" AnchorPane.leftAnchor="48.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Hyperlink>
-            <Label layoutX="75.0" layoutY="468.0" text="Don’t have an account?" textFill="WHITE" AnchorPane.leftAnchor="50.0">
+            <Label layoutX="77.6" layoutY="500.0" text="Don’t have an account?" textFill="WHITE" AnchorPane.leftAnchor="77.6">
                <font>
                   <Font name="Calibri" size="18.0" />
                </font>
             </Label>
-            <Hyperlink layoutX="222.2" layoutY="464.0" onAction="#signUp" text="Sign Up" textFill="#65aefd" AnchorPane.leftAnchor="222.2">
+            <Hyperlink layoutX="249.6" layoutY="496.0" onAction="#signUp" text="Sign Up" textFill="#65aefd" AnchorPane.leftAnchor="249.6">
                <font>
                   <Font name="Calibri" size="18.0" />
                </font>
             </Hyperlink>
+            <Label fx:id="errorEmailAddress" layoutX="50.4" layoutY="252.0" prefHeight="18.0" prefWidth="280.0" textFill="RED" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.39999999999998">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorPassword" layoutX="50.4" layoutY="350.0" prefHeight="18.0" prefWidth="280.0" textFill="RED" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.39999999999998">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorLoginMessage" layoutX="50.4" layoutY="471.0" textAlignment="CENTER" textFill="RED" AnchorPane.leftAnchor="50.4" AnchorPane.rightAnchor="50.39999999999998">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
     </children>
 </GridPane>

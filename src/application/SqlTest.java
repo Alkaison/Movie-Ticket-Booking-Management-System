@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 import org.sqlite.SQLiteDataSource;
 
+// run this SqlTest program, to check the installation process of the SQLite + JavaFX 
 public class SqlTest {
 	public static void main(String[] args) {
 		SQLiteDataSource ds = null;
