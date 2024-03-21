@@ -1,4 +1,4 @@
-module MovieTicketBookingSystem {
+module MovieTicketBookingManagementSystem {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires java.desktop;
@@ -11,5 +11,4 @@ module MovieTicketBookingSystem {
 	opens application to javafx.graphics, javafx.fxml;
 	opens application.controllers to javafx.fxml;
 	opens application.utils to com.google.gson;
-
 }
