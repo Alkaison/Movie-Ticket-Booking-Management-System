@@ -48,20 +48,20 @@ public class TicketDownloadController {
 		ResultSet rs = null;
 
 		try {
-			String sql = "Select * from user where Booking_Date = '2024-03-13' ";
+			String sql = "Select * from booked_ticket where bookingDate = '2024-03-24' ";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
 //			get only Specific date
-			String Name = rs.getString("Name");
-			String Id = rs.getString("Id");
-			String B_Date = rs.getString("Booking_Date");
-			String B_Time = rs.getString("Time");
-			String SeatNo = rs.getString("Seat_No");
-			String TicketNo = rs.getString("Ticket_No");
+//			String Name = rs.getString("Name");
+//			String Id = rs.getString("Id");
+			String B_Date = rs.getString("bookingDate");
+			String B_Time = rs.getString("bookingTime");
+			String SeatNo = rs.getString("seatNumbers");
+			String TicketNo = rs.getString("ticketNo");
 
-			System.out.println("Id : " + Id);
-			System.out.println("Name : " + Name);
+//			System.out.println("Id : " + Id);
+//			System.out.println("Name : " + Name);
 			System.out.println("Date : " + B_Date);
 			System.out.println("Time : " + B_Time);
 			System.out.println("Seat_No : " + SeatNo);
@@ -82,7 +82,7 @@ public class TicketDownloadController {
 				rs.close();
 				con.close();
 
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
 		}
@@ -208,7 +208,35 @@ public class TicketDownloadController {
 				job.endJob();
 				System.out.println("PDF Generated...");
 			}
+			
+//    Add this function on previous Screen/Window button
+    private Stage stage;
+    @FXML
+    void GoToTicketPage(ActionEvent e) {
+    	try {
+    		this.stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 
+    		AnchorPane root = FXMLLoader.load(getClass().getResource("TicketDownload.fxml"));
+			Scene scene = new Scene(root);
+					
+			Button Ticket_Download_btn = new Button("Download");
+			Ticket_Download_btn.setLayoutX(300);
+			Ticket_Download_btn.setLayoutY(400);
+			
+			Button Go_Home_btn = new Button("Go TO Home");
+			Go_Home_btn.setLayoutX(500);
+			Go_Home_btn.setLayoutY(400);
+			
+			Ticket_Download_btn.setOnAction(event -> {
+				System.out.println("clicked");
+				GeneratePDF(event);
+				
+			});
+			root.getChildren().addAll(Ticket_Download_btn,Go_Home_btn);	
+			
+			stage.setScene(scene);
+			stage.show();
+	
 		} catch (Exception e1) {
 			System.out.println(e1.toString());
 		}
