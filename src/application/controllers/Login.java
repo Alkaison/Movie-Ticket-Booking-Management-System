@@ -43,6 +43,12 @@ public class Login {
 	@FXML
 	private Button btnLogin;
 
+	public void resetErrorMessage(InputEvent event) throws Exception {
+		errorEmailAddress.setVisible(false);
+		errorPassword.setVisible(false);
+		errorLoginMessage.setVisible(false);
+	}
+
 	public void login(ActionEvent event) throws IOException {
 		String emailAddress = inputLoginEmailField.getText();
 		String password = inputLoginPasswordField.getText();
