@@ -1,4 +1,4 @@
-package application;
+package application.controllers;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.sqlite.SQLiteDataSource;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,17 +28,22 @@ import javafx.stage.Stage;
 public class TicketDownloadController {
 
 	@FXML
-    private Text booking_date1, booking_date2 ,booking_time1, booking_time2, seat_no1, seat_no2;
+	private Text booking_date1, booking_date2, booking_time1, booking_time2, seat_no1, seat_no2;
 
-    @FXML
-    private Text status1, status2 ,ticket_no1, ticket_no2;
-    
-    @FXML
-    private Button ticket_download_btn,  home_btn, btn;
-    
+	@FXML
+	private Text status1, status2, ticket_no1, ticket_no2;
+
+	@FXML
+	private Button ticket_download_btn, home_btn, btn;
+
+	private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
+
 	@FXML
 	void readTicketData(MouseEvent event) throws Exception {
-		Connection con = DBconnection.connect();
+		SQLiteDataSource ds = new SQLiteDataSource();
+		ds.setUrl(DB_URL);
+
+		Connection con = ds.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -78,7 +86,7 @@ public class TicketDownloadController {
 				System.out.println(e.toString());
 			}
 		}
-		
+
 	}
 
 //    convert 24hours to 12hours clock format
@@ -147,7 +155,7 @@ public class TicketDownloadController {
 	}
 
 //    set Ticket Details
-	public String setTicketDetils(String B_Date, String B_Time, String B_Status, String B_TicketNo, String B_SeatNo){
+	public String setTicketDetils(String B_Date, String B_Time, String B_Status, String B_TicketNo, String B_SeatNo) {
 		try {
 //			Change Ticket Details As per User Details 
 			booking_date1.setText(B_Date);
@@ -155,7 +163,7 @@ public class TicketDownloadController {
 			seat_no1.setText(B_SeatNo);
 			ticket_no1.setText(B_TicketNo);
 			status1.setText(B_Status);
-			
+
 			booking_date2.setText(B_Date);
 			booking_time2.setText(B_Time);
 			seat_no2.setText(B_SeatNo);
@@ -167,15 +175,15 @@ public class TicketDownloadController {
 		}
 		return null;
 	}
-		
+
 	@FXML
 	private void remove_btn(ActionEvent event) {
 		home_btn.setVisible(false);
 		home_btn.setManaged(false);
 		ticket_download_btn.setVisible(false);
 		ticket_download_btn.setManaged(false);
-	 }
-    
+	}
+
 	@FXML
 	private void show_btn(ActionEvent e) {
 		home_btn.setVisible(true);
@@ -183,28 +191,25 @@ public class TicketDownloadController {
 		ticket_download_btn.setVisible(true);
 		ticket_download_btn.setManaged(true);
 	}
-	
-    @FXML
-    public void GeneratePDF(ActionEvent e) {
-        try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("Ticket.fxml"));
+	@FXML
+	public void GeneratePDF(ActionEvent e) {
+		try {
 
-            PrinterJob job = PrinterJob.createPrinterJob();
-            if (job != null) {
-                PageLayout pageLayout = job.getPrinter().createPageLayout(javafx.print.Paper.A4, javafx.print.PageOrientation.LANDSCAPE, MarginType.EQUAL);
-                job.showPrintDialog(stage);
-                job.getJobSettings().setPageLayout(pageLayout);
-                job.printPage(root);
-                job.endJob();
-                System.out.println("PDF Generated...");
-            }
+			Parent root = FXMLLoader.load(getClass().getResource("Ticket.fxml"));
 
-        } catch (Exception e1) {
-            System.out.println(e1.toString());
-        }
-    }  
+			PrinterJob job = PrinterJob.createPrinterJob();
+			if (job != null) {
+				PageLayout pageLayout = job.getPrinter().createPageLayout(javafx.print.Paper.A4,
+						javafx.print.PageOrientation.LANDSCAPE, MarginType.EQUAL);
+				job.showPrintDialog(stage);
+				job.getJobSettings().setPageLayout(pageLayout);
+				job.printPage(root);
+				job.endJob();
+				System.out.println("PDF Generated...");
+			}
 
+<<<<<<< HEAD
 //    Add this function on previous Screen/Window button
     private Stage stage;
     @FXML
@@ -233,8 +238,43 @@ public class TicketDownloadController {
 			stage.setScene(scene);
 			stage.show();
 			
+=======
+>>>>>>> 62cfe6726e2141509c6ac63d502e39c95e57ed26
 		} catch (Exception e1) {
 			System.out.println(e1.toString());
 		}
-    }
+	}
+
+	private Stage stage;
+
+	@FXML
+	void GoToTicketPage(ActionEvent e) {
+		try {
+			this.stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+			AnchorPane root = FXMLLoader.load(getClass().getResource("TicketDownload.fxml"));
+			Scene scene = new Scene(root);
+
+			Button Ticket_Download_btn = new Button("Download");
+			Ticket_Download_btn.setLayoutX(300);
+			Ticket_Download_btn.setLayoutY(400);
+
+			Button Go_Home_btn = new Button("Go TO Home");
+			Go_Home_btn.setLayoutX(500);
+			Go_Home_btn.setLayoutY(400);
+
+			Ticket_Download_btn.setOnAction(event -> {
+				System.out.println("clicked");
+				GeneratePDF(event);
+
+			});
+			root.getChildren().addAll(Ticket_Download_btn, Go_Home_btn);
+
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e1) {
+			System.out.println(e1.toString());
+		}
+	}
 }

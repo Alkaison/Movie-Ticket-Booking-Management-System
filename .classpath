@@ -16,12 +16,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/application/lib/slf4j-nop-1.7.4.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/application/lib/sqlite-jdbc-3.45.1.0.jar">
+	<classpathentry kind="lib" path="src/application/lib/gson-2.10.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -31,7 +26,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/application/lib/gson-2.10.1.jar">
+	<classpathentry kind="lib" path="src/application/lib/slf4j-nop-1.7.4.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="src/application/lib/sqlite-jdbc-3.45.1.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
