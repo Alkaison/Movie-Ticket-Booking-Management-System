@@ -72,7 +72,9 @@ public class Login {
 
 				root = FXMLLoader.load(getClass().getResource("/application/fxml/Dashboard.fxml"));
 				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-				scene = new Scene(root);
+				double currentWidth = stage.getWidth();
+				double currentHeight = stage.getHeight();
+				scene = new Scene(root, currentWidth, currentHeight);
 
 				stage.setScene(scene);
 				stage.show();
@@ -95,7 +97,9 @@ public class Login {
 	public void signUp(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/SignUp.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
 
 		stage.setScene(scene);
 		stage.show();
@@ -104,8 +108,11 @@ public class Login {
 	public void forgetPassword(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/ForgotPassword.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
 
+		stage.setMaximized(true);
 		stage.setScene(scene);
 		stage.show();
 	}

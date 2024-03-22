@@ -33,7 +33,9 @@ public class SignUp {
 	public void goToSignVerification(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/SignUpVerification.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
 
 		stage.setScene(scene);
 		stage.show();
@@ -42,7 +44,9 @@ public class SignUp {
 	public void goToLoginScreen(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
 
 		stage.setScene(scene);
 		stage.show();
