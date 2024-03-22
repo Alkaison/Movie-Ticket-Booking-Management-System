@@ -89,7 +89,7 @@ public class TicketDownloadController {
 
 	}
 
-//    convert 24hours to 12hours clock format
+	// convert 24hours to 12hours clock format
 	public String convert_12Hours_Format(String getTime) {
 		try {
 			SimpleDateFormat sdf24 = new SimpleDateFormat("HH:mm:ss");
@@ -102,7 +102,7 @@ public class TicketDownloadController {
 		return null;
 	}
 
-//    convert 12hours to 24hours clock format
+	// convert 12hours to 24hours clock format
 	public String convert_24Hours_Format(String getTime) {
 		try {
 			SimpleDateFormat sdf24 = new SimpleDateFormat("HH:mm");
@@ -115,7 +115,7 @@ public class TicketDownloadController {
 		return null;
 	}
 
-//    change date format
+	// change date format
 	public String changeDateFormat(String getDate) {
 		try {
 			SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
@@ -128,7 +128,7 @@ public class TicketDownloadController {
 		return null;
 	}
 
-//    Ticket status validator
+	// Ticket status validator
 	public String checkTicketStatus(String getDate, String getTime) {
 		try {
 			// TimeStamp format yyyy-mm-dd hh:mm:ss (24 Hours)
@@ -154,10 +154,10 @@ public class TicketDownloadController {
 
 	}
 
-//    set Ticket Details
+	// set Ticket Details
 	public String setTicketDetils(String B_Date, String B_Time, String B_Status, String B_TicketNo, String B_SeatNo) {
 		try {
-//			Change Ticket Details As per User Details 
+			// Change Ticket Details As per User Details
 			booking_date1.setText(B_Date);
 			booking_time1.setText(B_Time);
 			seat_no1.setText(B_SeatNo);
@@ -208,40 +208,12 @@ public class TicketDownloadController {
 				job.endJob();
 				System.out.println("PDF Generated...");
 			}
-			
-//    Add this function on previous Screen/Window button
-    private Stage stage;
-    @FXML
-    void GoToTicketPage(ActionEvent e) {
-    	try {
-    		this.stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-
-    		AnchorPane root = FXMLLoader.load(getClass().getResource("TicketDownload.fxml"));
-			Scene scene = new Scene(root);
-					
-			Button Ticket_Download_btn = new Button("Download");
-			Ticket_Download_btn.setLayoutX(300);
-			Ticket_Download_btn.setLayoutY(400);
-			
-			Button Go_Home_btn = new Button("Go TO Home");
-			Go_Home_btn.setLayoutX(500);
-			Go_Home_btn.setLayoutY(400);
-			
-			Ticket_Download_btn.setOnAction(event -> {
-				System.out.println("clicked");
-				GeneratePDF(event);
-				
-			});
-			root.getChildren().addAll(Ticket_Download_btn,Go_Home_btn);	
-			
-			stage.setScene(scene);
-			stage.show();
-	
 		} catch (Exception e1) {
-			System.out.println(e1.toString());
+			e1.printStackTrace();
 		}
 	}
 
+	// Add this function on previous Screen/Window button
 	private Stage stage;
 
 	@FXML

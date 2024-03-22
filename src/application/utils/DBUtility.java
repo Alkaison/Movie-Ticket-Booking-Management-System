@@ -8,7 +8,7 @@ public class DBUtility {
 
 	private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
 
-	public static boolean validateLogin(String email, String password) {
+	public static Boolean validateLogin(String email, String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -42,6 +42,46 @@ public class DBUtility {
 				return false;
 			}
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false; // Return false in case of any exception
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static Boolean checkExistinguserEmailAddress(String email) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(DB_URL);
+
+			conn = ds.getConnection();
+
+			String query = "SELECT * FROM USERS WHERE emailAddress = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				// If any row is returned, email is valid
+				return true;
+			} else {
+				return false;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false; // Return false in case of any exception
