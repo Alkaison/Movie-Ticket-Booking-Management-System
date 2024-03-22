@@ -23,6 +23,7 @@ public class ForgotPassword {
 	private Scene scene;
 	private Parent root;
 	private static Boolean emailSentSuccessfully = false;
+	public static String userEmailAddress;
 
 	@FXML
 	private AnchorPane forgotPasswordContainer;
@@ -79,6 +80,7 @@ public class ForgotPassword {
 					errorForgotEmailField.setText("Email Sent Successfully!");
 					inputForgotOTPField.setDisable(false);
 					errorForgotOTPField.setText(null);
+					userEmailAddress = emailAddress;
 					emailSentSuccessfully = true;
 				} else {
 					errorForgotEmailField.setTextFill(Color.RED);

@@ -98,4 +98,48 @@ public class DBUtility {
 			}
 		}
 	}
+
+	public static Boolean updateUsersPassword(String email, String password) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(DB_URL);
+
+			conn = ds.getConnection();
+
+			// encrypt password
+			String encryptedPassword = EncryptionDecryption.encrypt(password);
+
+			String updateQuery = "UPDATE USERS SET password = ? WHERE emailAddress = ?";
+			pstmt = conn.prepareStatement(updateQuery);
+			pstmt.setString(1, encryptedPassword);
+			pstmt.setString(2, email);
+
+			// Execute the update query
+			int rowsUpdated = pstmt.executeUpdate();
+
+			// Check if the update was successful
+			if (rowsUpdated > 0) {
+				// Password updated successfully
+				return true;
+			} else {
+				// No rows were updated, possibly due to no user with the given email
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false; // Return false in case of any exception
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
