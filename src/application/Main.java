@@ -28,10 +28,10 @@ public class Main extends Application {
 			Image icon = new Image(iconPath.toString());
 			primaryStage.getIcons().add(icon);
 
-			// minimum width and height for stage window
+			// set the window screen maximized
 			primaryStage.setMinWidth(1200);
 			primaryStage.setMinHeight(700);
-			// primaryStage.setMaximized(true);
+			primaryStage.setMaximized(true);
 
 			// set scene and start application
 			primaryStage.setScene(scene);
