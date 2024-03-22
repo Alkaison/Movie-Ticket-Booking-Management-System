@@ -208,8 +208,7 @@ public class TicketDownloadController {
 				job.endJob();
 				System.out.println("PDF Generated...");
 			}
-
-<<<<<<< HEAD
+			
 //    Add this function on previous Screen/Window button
     private Stage stage;
     @FXML
@@ -237,9 +236,7 @@ public class TicketDownloadController {
 			
 			stage.setScene(scene);
 			stage.show();
-			
-=======
->>>>>>> 62cfe6726e2141509c6ac63d502e39c95e57ed26
+	
 		} catch (Exception e1) {
 			System.out.println(e1.toString());
 		}
