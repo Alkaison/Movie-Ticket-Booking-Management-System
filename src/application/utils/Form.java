@@ -57,4 +57,17 @@ public class Form {
 
 		return new Object[] { true, "" };
 	}
+
+	// validate Full Name or any input field which requires atleast 4 characters
+	public static Object[] validateFourCharacterLength(String input, String purpose) {
+		if (input == null || input.isEmpty()) {
+			return new Object[] { false, purpose + " cannot be empty." };
+		}
+
+		if (input.length() < 4) {
+			return new Object[] { false, purpose + " must be alteast 4 characters." };
+		}
+
+		return new Object[] { true, "" };
+	}
 }
