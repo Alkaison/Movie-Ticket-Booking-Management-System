@@ -31,6 +31,7 @@ public class SelectPayment implements Initializable {
 		setTitleAndPrice();
 	}
 
+	// hover animation for cards
 	@FXML
 	void hover(MouseEvent event) {
 		paymentButton1.setOnMouseEntered(event1 -> paymentButton1.setStyle("-fx-scale-x: 1.1;"));
@@ -38,6 +39,7 @@ public class SelectPayment implements Initializable {
 		paymentButton3.setOnMouseEntered(event1 -> paymentButton3.setStyle("-fx-scale-x: 1.1;"));
 	}
 
+	// remove hover animation for cards
 	@FXML
 	void Removehover(MouseEvent event) {
 		paymentButton1.setOnMouseExited(event1 -> paymentButton1.setStyle("-fx-scale-x: 1.0;"));
@@ -45,6 +47,7 @@ public class SelectPayment implements Initializable {
 		paymentButton3.setOnMouseExited(event1 -> paymentButton3.setStyle("-fx-scale-x: 1.0;"));
 	}
 
+	// title and price for movie tickets
 	@FXML
 	void setTitleAndPrice() {
 		// Code for Setting the Movie Title From Database

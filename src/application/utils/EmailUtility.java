@@ -16,8 +16,10 @@ public class EmailUtility {
 	private static final String EMAIL_USERNAME = "amitnare4303@gmail.com";
 	private static final String EMAIL_PASSWORD = System.getenv("EMAIL_PASSWORD");;
 
+	// used to verify OTP Code with user input
 	public static String validOtpCode;
 
+	// generate OTP, send Email
 	public static Boolean sendVerificationEmail(String emailAddress) {
 		// Generate OTP
 		String otp = generateOTP();
@@ -35,12 +37,15 @@ public class EmailUtility {
 		return isEmailSent;
 	}
 
+	// generate 6 digit OTP Code
 	private static String generateOTP() {
 		// Generate 6-digit OTP
 		return String.format("%06d", (int) (Math.random() * 1000000));
 	}
 
+	// take messages and sendEmail
 	private static Boolean sendEmail(String message, String subject, String to) {
+
 		try {
 			Properties props = new Properties();
 			props.put("mail.smtp.host", SMTP_HOST);

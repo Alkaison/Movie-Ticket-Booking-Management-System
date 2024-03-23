@@ -70,4 +70,20 @@ public class Form {
 
 		return new Object[] { true, "" };
 	}
+
+	// split the full Name into first and last names
+	public static String[] parseFullName(String fullName) {
+		String[] names = fullName.split("\\s+"); // Split by whitespace
+
+		// Check if only one name was provided (potentially only first name)
+		if (names.length == 1) {
+			return new String[] { names[0], null }; // Return first name and null for last name
+		} else {
+			// Construct first and last names
+			String firstName = names[0];
+			String lastName = fullName.substring(firstName.length()).trim(); // Extract last name
+
+			return new String[] { firstName, lastName };
+		}
+	}
 }

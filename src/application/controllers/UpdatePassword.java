@@ -39,6 +39,7 @@ public class UpdatePassword {
 	@FXML
 	private Button btnUpdatePassword;
 
+	// validate password, update password in DB
 	public void updateUserPassword(ActionEvent event) throws IOException {
 		String inputNewPassword = inputUpdatePasswordField.getText();
 		String inputConfirmPassword = inputUpdatePasswordConfirmField.getText();

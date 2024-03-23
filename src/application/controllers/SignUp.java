@@ -22,6 +22,9 @@ public class SignUp {
 	private Scene scene;
 	private Parent root;
 
+	// used for creating new user account after OTP verification and Password
+	public static String userFullName, userEmailAddress;
+
 	@FXML
 	private AnchorPane signUpFormContainer;
 
@@ -43,6 +46,8 @@ public class SignUp {
 	@FXML
 	private Button btnSignUp;
 
+	// validate FullName and EmailAddress, check if user already exists, send OTP
+	// Code, move to Password creation screen
 	public void handleSentOtpBtn(ActionEvent event) throws IOException {
 
 		String fullName = inputSignUpFullNameField.getText();
@@ -75,6 +80,8 @@ public class SignUp {
 				// check Email OTP sent status
 				if (isEmailOtpSent) {
 					errorVerifyEmailMessage.setVisible(false);
+					userFullName = fullName;
+					userEmailAddress = emailAddress;
 
 					// move to OTP verification and Password creation screen
 					root = FXMLLoader.load(getClass().getResource("/application/fxml/SignUpVerification.fxml"));
@@ -102,6 +109,7 @@ public class SignUp {
 		}
 	}
 
+	// move to login screen
 	public void goToLoginScreen(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

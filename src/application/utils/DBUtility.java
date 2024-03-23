@@ -8,6 +8,7 @@ public class DBUtility {
 
 	private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
 
+	// validate login, encrypt password and store data in userdata.json
 	public static Boolean validateLogin(String email, String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -33,7 +34,7 @@ public class DBUtility {
 				// If any row is returned, login is valid
 				// Store user specific data in a file
 				try {
-					JSONUtility.storeUserData(rs);
+					JSONUtility.storeUserDataFromResultSet(rs);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,7 +42,6 @@ public class DBUtility {
 			} else {
 				return false;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false; // Return false in case of any exception
@@ -59,6 +59,7 @@ public class DBUtility {
 		}
 	}
 
+	// check if the user account already exists via EmailAddress
 	public static Boolean checkExistinguserEmailAddress(String email) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -99,6 +100,7 @@ public class DBUtility {
 		}
 	}
 
+	// update users password, encrpyt password
 	public static Boolean updateUsersPassword(String email, String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -121,18 +123,60 @@ public class DBUtility {
 			int rowsUpdated = pstmt.executeUpdate();
 
 			// Check if the update was successful
-			if (rowsUpdated > 0) {
-				// Password updated successfully
-				return true;
-			} else {
-				// No rows were updated, possibly due to no user with the given email
-				return false;
-			}
+			return rowsUpdated > 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false; // Return false in case of any exception
 		} finally {
 			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// create new account, parse FullName, ecnrypt password
+	public static Boolean createNewUserAccount(String fullName, String email, String password) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(DB_URL);
+
+			conn = ds.getConnection();
+
+			// Encrypt password
+			String encryptedPassword = EncryptionDecryption.encrypt(password);
+
+			// Split the full name into first and last names
+			String[] parsedName = Form.parseFullName(fullName);
+			String firstName = (parsedName != null && parsedName.length > 0) ? parsedName[0] : null;
+			String lastName = (parsedName != null && parsedName.length > 1) ? parsedName[1] : null;
+
+			String insertQuery = "INSERT INTO USERS (firstName, lastName, emailAddress, password) VALUES (?, ?, ?, ?)";
+			pstmt = conn.prepareStatement(insertQuery);
+
+			pstmt.setString(1, firstName);
+			pstmt.setString(2, lastName);
+			pstmt.setString(3, email);
+			pstmt.setString(4, encryptedPassword);
+
+			// Execute the insert query
+			int rowsInserted = pstmt.executeUpdate();
+
+			// Check if the insert was successful
+			return rowsInserted > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false; // Return false in case of any exception
+		} finally {
+			try {
+				// Close PreparedStatement and Connection
 				if (pstmt != null)
 					pstmt.close();
 				if (conn != null)

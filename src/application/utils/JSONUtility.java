@@ -10,7 +10,8 @@ import java.sql.SQLException;
 
 public class JSONUtility {
 
-	public static void storeUserData(ResultSet rs) throws IOException, SQLException {
+	// take ResultSet and store in userdata.json file
+	public static void storeUserDataFromResultSet(ResultSet rs) throws IOException, SQLException {
 		// Extract user specific data from the ResultSet
 		int userId = rs.getInt("id");
 		String phoneNumber = rs.getString("phoneNumber");
@@ -18,6 +19,23 @@ public class JSONUtility {
 		String lastName = rs.getString("lastName");
 		String cityName = rs.getString("cityName");
 		String userEmail = rs.getString("emailAddress");
+
+		// Check for null or empty values and replace with empty string
+		if (phoneNumber == null || phoneNumber.isEmpty()) {
+			phoneNumber = "";
+		}
+		if (firstName == null || firstName.isEmpty()) {
+			firstName = "";
+		}
+		if (lastName == null || lastName.isEmpty()) {
+			lastName = "";
+		}
+		if (cityName == null || cityName.isEmpty()) {
+			cityName = "";
+		}
+		if (userEmail == null || userEmail.isEmpty()) {
+			userEmail = "";
+		}
 
 		// Create Gson object
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -51,5 +69,4 @@ public class JSONUtility {
 			this.cityName = cityName;
 		}
 	}
-
 }

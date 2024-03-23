@@ -23,6 +23,8 @@ public class ForgotPassword {
 	private Scene scene;
 	private Parent root;
 	private static Boolean emailSentSuccessfully = false;
+
+	// used for updating password in DB, on next step UpdatePassword
 	public static String userEmailAddress;
 
 	@FXML
@@ -46,6 +48,7 @@ public class ForgotPassword {
 	@FXML
 	private Button btnVerifyOTP;
 
+	// validate email Address, check if Email is new, send OTP Email
 	public void sendOTP(ActionEvent event) {
 		String emailAddress = inputForgotEmailField.getText();
 
@@ -104,12 +107,13 @@ public class ForgotPassword {
 		}
 	}
 
+	// validate OTP, check input OTP with Email OTP, move to UpdatePassword screen
 	public void verifyOTP(ActionEvent event) throws IOException {
 		if (emailSentSuccessfully) {
 
 			String otpCode = inputForgotOTPField.getText();
 
-			// Validate email
+			// Validate OTP Code
 			Object[] otpValidationResult = Form.validateOTP(otpCode);
 			boolean isOtpValid = (boolean) otpValidationResult[0];
 			String otpErrorMessage = (String) otpValidationResult[1];
@@ -117,10 +121,6 @@ public class ForgotPassword {
 			if (isOtpValid) {
 				// check if the user's input OTP and Email OTP are same
 				Boolean isOtpCorrect = otpCode.equals(EmailUtility.validOtpCode);
-
-				System.out.println(otpCode);
-				System.out.println(EmailUtility.validOtpCode);
-				System.out.println(isOtpCorrect);
 
 				if (isOtpCorrect) {
 					errorForgotOTPField.setVisible(false);
@@ -151,6 +151,7 @@ public class ForgotPassword {
 		}
 	}
 
+	// move to Login page
 	public void goToLoginPage(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
