@@ -4,9 +4,10 @@ public class Movie {
     private String movieName;
     private String movieDescription;
     private String movieRating;
-    private String movieRealeseDate;
+    private String movieRealeseDate , movieGener;
     
-    public String getName() {
+
+	public String getName() {
         return movieName;
     }
 
@@ -16,6 +17,14 @@ public class Movie {
 
     public String getDisc() {
         return movieDescription;
+    }
+
+    public String getMovieGener() {
+    	return movieGener;
+    }
+    
+    public void setMovieGener(String movieGener) {
+    	this.movieGener = movieGener;
     }
 
     public String getMovieRating() {

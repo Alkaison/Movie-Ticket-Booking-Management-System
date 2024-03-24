@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -23,15 +23,12 @@ public class ShowAllMoviesController implements Initializable {
 
     @FXML
     private HBox HBoxpane;
-
     @FXML
     private GridPane grid;
-    
-    @FXML
-    private Label setDiscLabel;
 
-    @FXML
-    private Label setNameLabel;
+//    @FXML
+//    private Label setDiscLabel ,setNameLabel;
+
 
     @FXML
     private ScrollPane scrollBar;
@@ -39,7 +36,7 @@ public class ShowAllMoviesController implements Initializable {
     
     private List<Movie> movieList = new ArrayList<>();
     
-//    //    use for display selected card
+//        use for display selected card
 //    private void setChoosenMovie(Movie movieName) {
 //    	setNameLabel.setText(movieName.getName());
 //    	setDiscLabel.setText(movieName.getDisc());
@@ -69,18 +66,19 @@ public class ShowAllMoviesController implements Initializable {
                 fxmlloder.setLocation(getClass().getResource("MovieCard.fxml"));
                 AnchorPane anchorPane = fxmlloder.load();
 
-                movieCardController cardController = fxmlloder.getController();
-                cardController.setData(movieList.get(i), MyListener,movieList.get(i));
+                MovieCardController cardController = fxmlloder.getController();
+                cardController.setData(movieList.get(i), MyListener,movieList.get(i),movieList.get(i),movieList.get(i));
 
                 if (col == 4) {
                     col = 0;
                     row++;
                 }
                 grid.add(anchorPane, col++, row);
-                GridPane.setMargin(anchorPane, new Insets(10)); // top,right,bottom,left
+                GridPane.setMargin(anchorPane, new Insets(20)); // top,right,bottom,left
             }
         } catch (Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace();
+//        	System.out.println(e.toString());
         }
     }
 
@@ -99,34 +97,37 @@ public class ShowAllMoviesController implements Initializable {
 	        rs = ps.executeQuery();
 	        
 	        while (rs.next()) {
-	            String getmoviename = rs.getString("name");
-	            String getdescription = rs.getString("description");
+	            String getMovieName = rs.getString("name");
 	            String getMovieRating = rs.getString("ratings");
-	            String getMovieRealeseDate = rs.getString("releaseDate");
+	            String getMovieGener = rs.getString("gener");
+	            String getMovieRealeseDateTime = rs.getString("releaseDate");
 
-	            Movie movie = new Movie();
-	            movie.setName(getmoviename);
-	            movie.setDisc(getdescription);
-	            movie.setMovieRating(getMovieRating);
-	            movie.setMovieRealeseDate(getMovieRealeseDate);
-	            movieNames.add(movie);
+//	            get MovieRealese Date&Time and display only date
+	            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat sdfOutput = new SimpleDateFormat("dd-MM-yyyy");
+                String getMovieRealeseDate = sdfOutput.format(sdfInput.parse(getMovieRealeseDateTime.toString()));
 	            
+                Movie movie = new Movie();
+                movie.setName(getMovieName);
+                movie.setMovieRating(getMovieRating);
+                movie.setMovieGener(getMovieGener);
+                movie.setMovieRealeseDate(getMovieRealeseDate);
+                
+                movieNames.add(movie);
 	            
-//	            System.out.println(getMovieRating);
 	        }
 	    } catch (Exception e) {
-	        e.printStackTrace();
+	        System.out.println(e.toString());
 	    } finally {
 	        try {
 	            if (rs != null) rs.close();
 	            if (ps != null) ps.close();
 	            if (con != null) con.close();
 	        } catch (Exception e) {
-	            e.printStackTrace();
+	        	e.printStackTrace();
 	        }
 	    }
 	    return movieNames;
 	}
-
 
 }
