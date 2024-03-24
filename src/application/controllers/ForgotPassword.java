@@ -49,6 +49,7 @@ public class ForgotPassword {
 	private Button btnVerifyOTP;
 
 	// validate email Address, check if Email is new, send OTP Email
+	@FXML
 	public void sendOTP(ActionEvent event) {
 		String emailAddress = inputForgotEmailField.getText();
 
@@ -108,6 +109,7 @@ public class ForgotPassword {
 	}
 
 	// validate OTP, check input OTP with Email OTP, move to UpdatePassword screen
+	@FXML
 	public void verifyOTP(ActionEvent event) throws IOException {
 		if (emailSentSuccessfully) {
 
@@ -152,6 +154,7 @@ public class ForgotPassword {
 	}
 
 	// move to Login page
+	@FXML
 	public void goToLoginPage(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

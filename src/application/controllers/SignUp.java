@@ -48,6 +48,7 @@ public class SignUp {
 
 	// validate FullName and EmailAddress, check if user already exists, send OTP
 	// Code, move to Password creation screen
+	@FXML
 	public void handleSentOtpBtn(ActionEvent event) throws IOException {
 
 		String fullName = inputSignUpFullNameField.getText();
@@ -110,6 +111,7 @@ public class SignUp {
 	}
 
 	// move to login screen
+	@FXML
 	public void goToLoginScreen(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

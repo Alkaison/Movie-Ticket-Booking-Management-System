@@ -45,6 +45,7 @@ public class Login {
 	private Button btnLogin;
 
 	// hide the error message on input Typing event
+	@FXML
 	public void resetErrorMessage(InputEvent event) throws Exception {
 		errorEmailAddress.setVisible(false);
 		errorPassword.setVisible(false);
@@ -52,6 +53,7 @@ public class Login {
 	}
 
 	// validate Email and Password, check in DB, store in userdata.json
+	@FXML
 	public void login(ActionEvent event) throws IOException {
 		String emailAddress = inputLoginEmailField.getText();
 		String password = inputLoginPasswordField.getText();
@@ -104,6 +106,7 @@ public class Login {
 	}
 
 	// move to sign up screen
+	@FXML
 	public void signUp(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/SignUp.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -116,6 +119,7 @@ public class Login {
 	}
 
 	// move to forgot password screen
+	@FXML
 	public void forgetPassword(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/ForgotPassword.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

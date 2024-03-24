@@ -45,6 +45,7 @@ public class SignUpVerification {
 	private Button btnCreateAccount;
 
 	// validate OTP and password, check OTP Code, create account, move to login
+	@FXML
 	public void createAccount(ActionEvent event) throws IOException {
 
 		String otpCode = inputOTPVerification.getText();
@@ -102,6 +103,7 @@ public class SignUpVerification {
 	}
 
 	// move to login screen
+	@FXML
 	public void goToLoginScreen(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
