@@ -1,4 +1,4 @@
-package Movies;
+package application.utils;
 
 public class Movie {
     private String movieName;

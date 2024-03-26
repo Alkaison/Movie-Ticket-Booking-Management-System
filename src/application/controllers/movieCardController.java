@@ -1,13 +1,13 @@
-package application;
+package application.controllers;
 
-import Movies.Movie;
+import application.utils.Movie;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class MovieCardController{
+public class movieCardController{
 	
 	@FXML
     private AnchorPane MovieImgContainer , anchor;
@@ -28,9 +28,9 @@ public class MovieCardController{
 	}
 	
 //   set to display data to screen
-    public void setData(Movie movieName,MovieCardListener MyListener,Movie movieRating, Movie movieGener , Movie movieReleaseDate) {
+    public void setData(Movie movieName,Movie movieRating, Movie movieGener , Movie movieReleaseDate) {
     	this.movieName =  movieName;
-    	this.MyListener = MyListener;
+//    	this.MyListener = MyListener;
     	setMovieName.setText(movieName.getName());
     	setMovieRating.setText(movieName.getMovieRating());
     	setMovieGener.setText(movieName.getMovieGener());

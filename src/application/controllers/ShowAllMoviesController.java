@@ -1,121 +1,116 @@
-package application;
+package application.controllers;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Movies.Movie;
+import org.sqlite.SQLiteDataSource;
+
+import application.utils.DBUtility;
+import application.utils.Movie;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class ShowAllMoviesController implements Initializable {
 
+//    private MovieCardListener MyListener;
+    
     @FXML
     private HBox HBoxpane;
+
+    @FXML
+    private TextField getMovieSearchInput;
+
     @FXML
     private GridPane grid;
 
-//    @FXML
-//    private Label setDiscLabel ,setNameLabel;
+    @FXML
+    private ImageView movieSearchBtn ;
 
+    @FXML
+    private Button newReleaseBtn , searchBtn;
 
     @FXML
     private ScrollPane scrollBar;
-    private MovieCardListener MyListener;
+
+    @FXML
+    private Button trendingMoviesBtn;
+
+    @FXML
+    private Button upcomingsMoviesBtn;
     
     private List<Movie> movieList = new ArrayList<>();
-    
-//        use for display selected card
-//    private void setChoosenMovie(Movie movieName) {
-//    	setNameLabel.setText(movieName.getName());
-//    	setDiscLabel.setText(movieName.getDisc());
-//	}
-    
-//    Display Selected Movie on top section
+
+    private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
+//   fetch data and display in movieCard
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-//    	ReadDate();
-        List<Movie> moviesFromDatabase = ReadDate();
-        movieList.addAll(moviesFromDatabase);
-
-//        if (!movieList.isEmpty()) {
-//            setChoosenMovie(movieList.get(0));
-//            MyListener = new myListener() {
-//                @Override
-//                public void onClick(Movie movie) {
-//                    setChoosenMovie(movie);
-//                }
-//            };
-//        }
-
-        int col = 0, row = 1;
-        try {
-            for (int i = 0; i < movieList.size(); i++) {
-                FXMLLoader fxmlloder = new FXMLLoader();
-                fxmlloder.setLocation(getClass().getResource("MovieCard.fxml"));
-                AnchorPane anchorPane = fxmlloder.load();
-
-                MovieCardController cardController = fxmlloder.getController();
-                cardController.setData(movieList.get(i), MyListener,movieList.get(i),movieList.get(i),movieList.get(i));
-
-                if (col == 4) {
-                    col = 0;
-                    row++;
-                }
-                grid.add(anchorPane, col++, row);
-                GridPane.setMargin(anchorPane, new Insets(20)); // top,right,bottom,left
-            }
-        } catch (Exception e) {
-        	e.printStackTrace();
-//        	System.out.println(e.toString());
-        }
+        List<Movie> moviesFromDatabase;
+		try {
+			moviesFromDatabase = readMoviesDate();
+			movieList.addAll(moviesFromDatabase);
+			
+			int col = 0, row = 1;
+			try {
+				for (int i = 0; i < movieList.size(); i++) {
+					FXMLLoader fxmlloder = new FXMLLoader();
+					fxmlloder.setLocation(getClass().getResource("MovieCard.fxml"));
+					AnchorPane anchorPane = fxmlloder.load();
+					
+					movieCardController cardController = fxmlloder.getController();
+					cardController.setData(movieList.get(i),movieList.get(i),movieList.get(i),movieList.get(i));
+					
+					if (col == 4) {
+						col = 0;
+						row++;
+					}
+					grid.add(anchorPane, col++, row);
+					GridPane.setMargin(anchorPane, new Insets(20)); // top,right,bottom,left
+				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
     }
 
 //	DB connection
 	@FXML
-	List<Movie> ReadDate() {
+	List<Movie> readMoviesDate() throws SQLException {
 	    List<Movie> movieNames = new ArrayList<>();
-	    Connection con = null;
-	    PreparedStatement ps = null;
-	    ResultSet rs = null; // Result Storing Object
+	    SQLiteDataSource ds = new SQLiteDataSource();
+		ds.setUrl(DB_URL);
+
+		Connection con = ds.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 	    
-	    try {
-	        con = DBconnection.connect();
+	    try {    
 	        String sql = "SELECT * FROM movies";
 	        ps = con.prepareStatement(sql);
 	        rs = ps.executeQuery();
 	        
-	        while (rs.next()) {
-	            String getMovieName = rs.getString("name");
-	            String getMovieRating = rs.getString("ratings");
-	            String getMovieGener = rs.getString("gener");
-	            String getMovieRealeseDateTime = rs.getString("releaseDate");
+//	        getting outsider file function
+	        DBUtility.getMoviesData(rs, movieNames);
 
-//	            get MovieRealese Date&Time and display only date
-	            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                SimpleDateFormat sdfOutput = new SimpleDateFormat("dd-MM-yyyy");
-                String getMovieRealeseDate = sdfOutput.format(sdfInput.parse(getMovieRealeseDateTime.toString()));
-	            
-                Movie movie = new Movie();
-                movie.setName(getMovieName);
-                movie.setMovieRating(getMovieRating);
-                movie.setMovieGener(getMovieGener);
-                movie.setMovieRealeseDate(getMovieRealeseDate);
-                
-                movieNames.add(movie);
-	            
-	        }
 	    } catch (Exception e) {
 	        System.out.println(e.toString());
 	    } finally {
@@ -124,10 +119,136 @@ public class ShowAllMoviesController implements Initializable {
 	            if (ps != null) ps.close();
 	            if (con != null) con.close();
 	        } catch (Exception e) {
-	        	e.printStackTrace();
+	        	System.out.println(e.toString());
 	        }
 	    }
 	    return movieNames;
 	}
+	
+//	search movies
+	@FXML
+	void searchMovies(KeyEvent event) throws Exception {
+		String searchQuery = getMovieSearchInput.getText().trim();
+		List<Movie> searchResults = searchMoviesInDatabase(searchQuery);
+		refreshGrid(searchResults);
+	}
+	
+	List<Movie> searchMoviesInDatabase(String searchQuery) throws Exception {
+	    List<Movie> movieNames = new ArrayList<>();
+	    SQLiteDataSource ds = new SQLiteDataSource();
+		ds.setUrl(DB_URL);
 
+		Connection con = ds.getConnection();
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        con = ds.getConnection();
+	        String sql = "SELECT * FROM movies WHERE name LIKE  ? OR gener LIKE  ?";
+	        ps = con.prepareStatement(sql);
+	        ps.setString(1, "%" + searchQuery + "%");
+	        ps.setString(2, "%" + searchQuery + "%");
+	        rs = ps.executeQuery();
+	        
+//	        getting outsider file function
+	        DBUtility.getMoviesData(rs, movieNames);
+
+	    } catch (Exception e) {
+	        System.out.println(e.toString());
+	    } finally {
+	    	try {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        } catch (Exception e) {
+	        	System.out.println(e.toString());
+	        }
+	    }
+	    return movieNames;
+	}
+		
+// Change Grid Content on Movie Search
+	void refreshGrid(List<Movie> searchResults) {
+	    grid.getChildren().clear(); // Clear existing grid content
+	    int col = 0, row = 1;
+	    try {
+	        for (int i = 0; i < searchResults.size(); i++) {
+	            FXMLLoader fxmlloder = new FXMLLoader();
+	            fxmlloder.setLocation(getClass().getResource("MovieCard.fxml"));
+	            AnchorPane anchorPane = fxmlloder.load();
+	
+	            movieCardController cardController = fxmlloder.getController();
+	            cardController.setData(searchResults.get(i), searchResults.get(i), searchResults.get(i), searchResults.get(i));
+	
+	            if (col == 4) {
+	                col = 0;
+	                row++;
+	            }
+	            grid.add(anchorPane, col++, row);
+	            GridPane.setMargin(anchorPane, new Insets(20)); // top,right,bottom,left
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e.toString());
+	    }
+	}
+	
+//  BUtton click
+    @FXML
+    void showReleaseMovies(ActionEvent event) throws Exception {
+    	List<Movie> releaseMovies = getMoviesByStatus("New Release");
+        refreshGrid(releaseMovies);
+    }
+
+
+    @FXML
+    void showTrendingMovies(ActionEvent event) throws Exception {
+    	List<Movie> releaseMovies = getMoviesByStatus("Trending");
+        refreshGrid(releaseMovies);
+    }
+
+    @FXML
+    void showUpcomingMovies(ActionEvent event) throws Exception {
+    	List<Movie> releaseMovies = getMoviesByStatus("Upcoming");
+        refreshGrid(releaseMovies);
+    }
+
+    private List<Movie> getMoviesByStatus(String status) throws Exception {
+        List<Movie> movieNames = new ArrayList<>();
+        SQLiteDataSource ds = new SQLiteDataSource();
+		ds.setUrl(DB_URL);
+
+		Connection con = ds.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+        
+        try {
+//            con = DBconnection.connect();
+            String sql = "SELECT * FROM movies WHERE movieStatus = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, status);
+            rs = ps.executeQuery();
+            
+            DBUtility.getMoviesData(rs, movieNames);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+        	try {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        } catch (Exception e) {
+	        	System.out.println(e.toString());
+	        }
+        }
+        return movieNames;
+    }
+    
+//  Refresh Grid Content
+    @FXML
+    void refreshContent(MouseEvent event) {
+        grid.getChildren().clear();
+        initialize(null, null);
+    }
+
+	
 }

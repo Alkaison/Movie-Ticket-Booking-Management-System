@@ -1,6 +1,11 @@
 package application.utils;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.sqlite.SQLiteDataSource;
 
@@ -185,5 +190,31 @@ public class DBUtility {
 				e.printStackTrace();
 			}
 		}
+	}
+
+//	Fetch Movies Table data
+	public static void getMoviesData(ResultSet rs, List<Movie> movieNames) {
+	    try {
+	        while (rs.next()) {
+	            String getMovieName = rs.getString("name");
+	            String getMovieRating = rs.getString("ratings");
+	            String getMovieGener = rs.getString("gener");
+	            String getMovieRealeseDateTime = rs.getString("releaseDate");
+
+	            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd-MM-yyyy");
+	            String getMovieRealeseDate = sdfOutput.format(sdfInput.parse(getMovieRealeseDateTime.toString()));
+	            
+	            Movie movie = new Movie();
+	            movie.setName(getMovieName);
+	            movie.setMovieRating(getMovieRating);
+	            movie.setMovieGener(getMovieGener);
+	            movie.setMovieRealeseDate(getMovieRealeseDate);
+	            
+	            movieNames.add(movie);
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e.toString());
+	    }
 	}
 }
