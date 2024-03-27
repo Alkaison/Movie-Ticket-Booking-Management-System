@@ -2,10 +2,15 @@ package application.controllers;
 
 import application.utils.Movie;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class movieCardController{
 	
@@ -16,25 +21,32 @@ public class movieCardController{
 	@FXML
 	private Text setMovieGener, setMovieRating, setMovieReleaseDate;
 	@FXML
-	private Movie movieName;
-
+	private Movie movie;
     @FXML
     private ImageView setMovieImg;
-    private MovieCardListener MyListener;
     
-	@FXML
-	private void click(MouseEvent event) {
-		MyListener.onClick(movieName);
-	}
-	
-//   set to display data to screen
-    public void setData(Movie movieName,Movie movieRating, Movie movieGener , Movie movieReleaseDate) {
-    	this.movieName =  movieName;
-//    	this.MyListener = MyListener;
-    	setMovieName.setText(movieName.getName());
-    	setMovieRating.setText(movieName.getMovieRating());
-    	setMovieGener.setText(movieName.getMovieGener());
-    	setMovieReleaseDate.setText(movieName.getMovieRealeseDate());
+    Stage stage;
+    Scene scene;
+    @FXML
+    private void click(MouseEvent e) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MovieStatus.fxml"));
+        Parent root = loader.load();
+        MovieStatusController controller = loader.getController();
+
+        // Pass the movie details to MovieStatusController
+        controller.setMovieData(setMovieName.getText(),setMovieGener.getText(), setMovieRating.getText(), setMovieReleaseDate.getText());
+
+        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
-    
+
+//   set to display data to screen
+    public void setData(Movie movie) {
+    	setMovieName.setText(movie.getMovieName());
+    	setMovieRating.setText(movie.getMovieRating());
+    	setMovieGener.setText(movie.getMovieGener());
+    	setMovieReleaseDate.setText(movie.getMovieRealeseDate());
+    }   
 }

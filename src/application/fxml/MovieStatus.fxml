@@ -50,6 +50,11 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gener :" wrappingWidth="52.13671875">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Text>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Release Date : " wrappingWidth="103.13671875">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
@@ -78,11 +83,12 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </VBox>
-                              <Label fx:id="movieDescription" layoutX="110.0" layoutY="86.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
-                              <Label fx:id="movieReleaseDate" layoutX="110.0" layoutY="116.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
-                              <Label fx:id="movieAvailableSeat" layoutX="119.0" layoutY="145.0" prefHeight="20.0" prefWidth="506.0" text="Label" />
-                              <Label fx:id="movieNextShow" layoutX="101.0" layoutY="175.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
-                              <Label fx:id="movieActors" layoutX="68.0" layoutY="203.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieDescription" layoutX="101.0" layoutY="73.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieReleaseDate" layoutX="109.0" layoutY="131.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieAvailableSeat" layoutX="118.0" layoutY="160.0" prefHeight="20.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieNextShow" layoutX="98.0" layoutY="189.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieActors" layoutX="68.0" layoutY="218.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieGener" layoutX="65.0" layoutY="101.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
                            </children>
                         </Pane>
                         <Pane prefHeight="331.0" prefWidth="350.0">

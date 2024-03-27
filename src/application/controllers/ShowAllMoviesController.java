@@ -1,15 +1,13 @@
 package application.controllers;
 
+import java.awt.image.DataBuffer;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import org.sqlite.SQLiteDataSource;
 
 import application.utils.DBUtility;
 import application.utils.Movie;
@@ -29,8 +27,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class ShowAllMoviesController implements Initializable {
-
-//    private MovieCardListener MyListener;
     
     @FXML
     private HBox HBoxpane;
@@ -58,52 +54,45 @@ public class ShowAllMoviesController implements Initializable {
     
     private List<Movie> movieList = new ArrayList<>();
 
-    private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
 //   fetch data and display in movieCard
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        List<Movie> moviesFromDatabase;
-		try {
-			moviesFromDatabase = readMoviesDate();
-			movieList.addAll(moviesFromDatabase);
-			
-			int col = 0, row = 1;
-			try {
-				for (int i = 0; i < movieList.size(); i++) {
-					FXMLLoader fxmlloder = new FXMLLoader();
-					fxmlloder.setLocation(getClass().getResource("MovieCard.fxml"));
-					AnchorPane anchorPane = fxmlloder.load();
-					
-					movieCardController cardController = fxmlloder.getController();
-					cardController.setData(movieList.get(i),movieList.get(i),movieList.get(i),movieList.get(i));
-					
-					if (col == 4) {
-						col = 0;
-						row++;
-					}
-					grid.add(anchorPane, col++, row);
-					GridPane.setMargin(anchorPane, new Insets(20)); // top,right,bottom,left
-				}
-			} catch (Exception e) {
-				System.out.println(e.toString());
-			}
-		} catch (SQLException e) {
-			System.out.println(e.toString());
-		}
+        List<Movie> moviesFromDatabase = readMoviesDate();
+        movieList.addAll(moviesFromDatabase);
+
+        int col = 0, row = 1;
+        try {
+            for (int i = 0; i < movieList.size(); i++) {
+                FXMLLoader fxmlloder = new FXMLLoader();
+                fxmlloder.setLocation(getClass().getResource("MovieCard.fxml"));
+                AnchorPane anchorPane = fxmlloder.load();
+
+                movieCardController cardController = fxmlloder.getController();
+                cardController.setData(movieList.get(i));
+
+                if (col == 4) {
+                    col = 0;
+                    row++;
+                }
+                grid.add(anchorPane, col++, row);
+                GridPane.setMargin(anchorPane, new Insets(20)); // top,right,bottom,left
+            }
+        } catch (Exception e) {
+        	System.out.println(e.toString());
+        }
     }
 
 //	DB connection
 	@FXML
-	List<Movie> readMoviesDate() throws SQLException {
+	List<Movie> readMoviesDate() {
 	    List<Movie> movieNames = new ArrayList<>();
-	    SQLiteDataSource ds = new SQLiteDataSource();
-		ds.setUrl(DB_URL);
-
-		Connection con = ds.getConnection();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null; // Result Storing Object
 	    
-	    try {    
+	    try {
+//	    	connect your DB
+	        con = DBconnection.connect();
 	        String sql = "SELECT * FROM movies";
 	        ps = con.prepareStatement(sql);
 	        rs = ps.executeQuery();
@@ -127,23 +116,20 @@ public class ShowAllMoviesController implements Initializable {
 	
 //	search movies
 	@FXML
-	void searchMovies(KeyEvent event) throws Exception {
+	void searchMovies(KeyEvent event) {
 		String searchQuery = getMovieSearchInput.getText().trim();
 		List<Movie> searchResults = searchMoviesInDatabase(searchQuery);
 		refreshGrid(searchResults);
 	}
 	
-	List<Movie> searchMoviesInDatabase(String searchQuery) throws Exception {
+	List<Movie> searchMoviesInDatabase(String searchQuery) {
 	    List<Movie> movieNames = new ArrayList<>();
-	    SQLiteDataSource ds = new SQLiteDataSource();
-		ds.setUrl(DB_URL);
-
-		Connection con = ds.getConnection();
+	    Connection con = null;
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
 	    
 	    try {
-	        con = ds.getConnection();
+	        con = DBconnection.connect();
 	        String sql = "SELECT * FROM movies WHERE name LIKE  ? OR gener LIKE  ?";
 	        ps = con.prepareStatement(sql);
 	        ps.setString(1, "%" + searchQuery + "%");
@@ -178,7 +164,7 @@ public class ShowAllMoviesController implements Initializable {
 	            AnchorPane anchorPane = fxmlloder.load();
 	
 	            movieCardController cardController = fxmlloder.getController();
-	            cardController.setData(searchResults.get(i), searchResults.get(i), searchResults.get(i), searchResults.get(i));
+	            cardController.setData(searchResults.get(i));
 	
 	            if (col == 4) {
 	                col = 0;
@@ -194,35 +180,32 @@ public class ShowAllMoviesController implements Initializable {
 	
 //  BUtton click
     @FXML
-    void showReleaseMovies(ActionEvent event) throws Exception {
+    void showReleaseMovies(ActionEvent event) {
     	List<Movie> releaseMovies = getMoviesByStatus("New Release");
         refreshGrid(releaseMovies);
     }
 
 
     @FXML
-    void showTrendingMovies(ActionEvent event) throws Exception {
+    void showTrendingMovies(ActionEvent event) {
     	List<Movie> releaseMovies = getMoviesByStatus("Trending");
         refreshGrid(releaseMovies);
     }
 
     @FXML
-    void showUpcomingMovies(ActionEvent event) throws Exception {
+    void showUpcomingMovies(ActionEvent event) {
     	List<Movie> releaseMovies = getMoviesByStatus("Upcoming");
         refreshGrid(releaseMovies);
     }
 
-    private List<Movie> getMoviesByStatus(String status) throws Exception {
+    private List<Movie> getMoviesByStatus(String status) {
         List<Movie> movieNames = new ArrayList<>();
-        SQLiteDataSource ds = new SQLiteDataSource();
-		ds.setUrl(DB_URL);
-
-		Connection con = ds.getConnection();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null; // Result Storing Object
         
         try {
-//            con = DBconnection.connect();
+            con = DBconnection.connect();
             String sql = "SELECT * FROM movies WHERE movieStatus = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, status);
@@ -249,6 +232,4 @@ public class ShowAllMoviesController implements Initializable {
         grid.getChildren().clear();
         initialize(null, null);
     }
-
-	
 }
