@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?xml-model ?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#click" pickOnBounds="false" prefHeight="335.0" prefWidth="251.0" style="-fx-background-color: #011522;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MovieCardController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#click" pickOnBounds="false" prefHeight="335.0" prefWidth="251.0" style="-fx-background-color: #011522;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MovieCardController">
    <children>
       <AnchorPane fx:id="MovieImgContainer" prefHeight="234.0" prefWidth="251.0" style="-fx-background-color: whitesmoke;">
          <children>
@@ -23,7 +23,7 @@
       </Text>
       <ImageView fitHeight="17.0" fitWidth="22.0" layoutX="174.0" layoutY="247.0">
          <image>
-            <Image url="@../star.png" />
+            <Image url="@../resources/star.png" />
          </image>
       </ImageView>
       <Text fx:id="setMovieRating" fill="WHITE" layoutX="204.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" wrappingWidth="61.0">
