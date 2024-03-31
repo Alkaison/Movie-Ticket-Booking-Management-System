@@ -15,7 +15,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			// path to Login FXML file
-			String fxmlResource = "fxml/ShowAllMovies.fxml";
+			String fxmlResource = "fxml/Dashboard.fxml";
 
 			// initializing stage and scene
 			Parent root = FXMLLoader.load(getClass().getResource(fxmlResource));
