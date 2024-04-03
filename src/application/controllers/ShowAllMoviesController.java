@@ -22,7 +22,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -246,10 +245,10 @@ public class ShowAllMoviesController implements Initializable {
 		return movieNames;
 	}
 
-//  Refresh Grid Content
-	@FXML
-	void refreshContent(MouseEvent event) {
-		grid.getChildren().clear();
-		initialize(null, null);
-	}
+////  Refresh Grid Content
+//	@FXML
+//	void refreshContent(MouseEvent event) {
+//		grid.getChildren().clear();
+//		initialize(null, null);
+//	}
 }
