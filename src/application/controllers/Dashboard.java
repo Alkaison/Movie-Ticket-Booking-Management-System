@@ -88,20 +88,14 @@ public class Dashboard implements Initializable {
 
 	@FXML
 	public void hoverBtn(MouseEvent event) {
-		dashboardBtn.setOnMouseEntered(e -> dashboardBtn.setStyle("-fx-scale-x: 1.04;"));
-		moviesBtn.setOnMouseEntered(e -> moviesBtn.setStyle("-fx-scale-x: 1.04;"));
-		bookingsBtn.setOnMouseEntered(e -> bookingsBtn.setStyle("-fx-scale-x: 1.04;"));
-		usersBtn.setOnMouseEntered(e -> usersBtn.setStyle("-fx-scale-x: 1.04;"));
-		logoutBtn.setOnMouseEntered(e -> logoutBtn.setStyle("-fx-scale-x: 1.04;"));
+		Button button = ((Button)event.getSource());
+		button.setStyle("-fx-scale-x: 1.04;");
 	}
 
 	@FXML
 	public void unhoverBtn(MouseEvent event) {
-		dashboardBtn.setOnMouseExited(e -> dashboardBtn.setStyle("-fx-scale-x: 1.00;"));
-		moviesBtn.setOnMouseExited(e -> moviesBtn.setStyle("-fx-scale-x: 1.00;"));
-		bookingsBtn.setOnMouseExited(e -> bookingsBtn.setStyle("-fx-scale-x: 1.00;"));
-		usersBtn.setOnMouseExited(e -> usersBtn.setStyle("-fx-scale-x: 1.00;"));
-		logoutBtn.setOnMouseExited(e -> logoutBtn.setStyle("-fx-scale-x: 1.00;"));
+		Button button = ((Button)event.getSource());
+		button.setStyle("-fx-scale-x: 1.0;");
 	}
 
 }
