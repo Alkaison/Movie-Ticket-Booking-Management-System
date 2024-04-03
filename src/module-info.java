@@ -7,7 +7,7 @@ module MovieTicketBookingManagementSystem {
 	requires java.sql;
 	requires org.xerial.sqlitejdbc;
 	requires com.google.gson;
-	requires mail;
+	requires java.mail;
 
 	opens application to javafx.graphics, javafx.fxml;
 	opens application.controllers to javafx.fxml;
