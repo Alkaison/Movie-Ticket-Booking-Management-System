@@ -4,7 +4,7 @@ public class Movie {
     private String movieName, movieDescription;
     private String movieRating;
     private String movieRealeseDate , movieGener;
-    private String NextShow;
+    private String NextShow , Actor;
     private int BoookedSeat , TotalSeat;
 	private int availableSeat;
     
@@ -46,8 +46,8 @@ public class Movie {
 	public String getNextShow() {
 		return NextShow;
 	}
-	public void setNextShow(String getNextShow) {
-		this.NextShow = getNextShow;
+	public void setNextShow(String NextShow) {
+		this.NextShow = NextShow;
 	}
 	
 	public int getBookedSeat() {
@@ -70,5 +70,11 @@ public class Movie {
 	public void setAvailableSeat(int totalSeat , int bookedSeat) {
 		availableSeat = totalSeat - bookedSeat;
 	}
-		
+	
+	public String getMovieActor() {
+		return Actor;
+	}
+	public void setMovieActor(String Actor) {
+		this.Actor = Actor;
+	}
 }
