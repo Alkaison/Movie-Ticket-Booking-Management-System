@@ -3,7 +3,7 @@ package application.controllers;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-
+//import javafx.stage.Screen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 
 public class SelectSeats implements Initializable {
 	
@@ -20,7 +21,7 @@ public class SelectSeats implements Initializable {
 	@FXML
 //	private GridPane selectSeatsWrap;
 	private AnchorPane seatsPane;
-//	private ScrollPane seatsPane;
+	private ScrollPane scrollPane;
 	
 	public String getSeatCode(int num) {
 		char[] chs = new char[10];
@@ -71,6 +72,9 @@ public class SelectSeats implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+//		double paneWidth = scrollPane.getWidth();
+		double paneWidth = Screen.getPrimary().getBounds().getWidth();
+		seatsPane.setPrefWidth(paneWidth);
 		GridPane selectSeatsWrap = new GridPane();
 		selectSeatsWrap.setVgap(10);
 		selectSeatsWrap.setHgap(10);

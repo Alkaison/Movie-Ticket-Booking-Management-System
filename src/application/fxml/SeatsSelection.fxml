@@ -4,13 +4,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="700.0" minWidth="1200.0" style="-fx-background-color: #1F1F1F;" stylesheets="@../css/SelectSeats.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SelectSeats">
    <children>
-      <ScrollPane hbarPolicy="NEVER" minWidth="1200.0" prefHeight="700.0" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="scrollPane" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" hbarPolicy="NEVER" vbarPolicy="ALWAYS">
         <content>
-          <AnchorPane fx:id="seatsPane" minWidth="1200.0" style="-fx-background-color: #1F1F1F;">
+          <AnchorPane fx:id="seatsPane" style="-fx-background-color: #1F1F1F;">
                <children>
                   <Label contentDisplay="CENTER" layoutX="522.0" layoutY="32.0" style="-fx-background-color: #2f243a; -fx-padding: 4 12; -fx-background-radius: 8;" text="Select Seats" textAlignment="CENTER" textFill="RED">
                      <font>
