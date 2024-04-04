@@ -1,6 +1,7 @@
 package application.controllers;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -53,7 +54,7 @@ public class SelectSeats implements Initializable {
 		String[] newArr = {};
 		// Addition of Seat
 		if(method == 1) {
-			newArr = orgArr.clone();
+			newArr = Arrays.copyOf(orgArr, orgArr.length+1);
 			newArr[orgArr.length] = el;
 		}
 		// Removal of Seat
@@ -80,7 +81,7 @@ public class SelectSeats implements Initializable {
 			Button btn = new Button();
 			btn.setText(str);
 			if(i<10 || i>=190) {
-				btn.getStyleClass().add("selected-seats");
+				btn.getStyleClass().add("booked-seats");
 			}else {
 				btn.getStyleClass().add("available-seats");
 				btn.setOnAction(event -> handleSelection(event));;
@@ -92,19 +93,19 @@ public class SelectSeats implements Initializable {
 	
 	public void handleSelection(ActionEvent event) {
 		Button btn = ((Button)event.getSource());
-		for (int i = 0; i<selectedSeats.length; i++) {
-			String el = selectedSeats[i];
-			if(btn.getText() == el) {
-				selectedSeats = this.getUpdatedSelection(selectedSeats, 0, btn.getText()).clone();
-				btn.getStyleClass().remove("current-seats");
-				break;
+//		System.out.println(btn.getStyleClass());
+		boolean alreadySelected = Arrays.stream(selectedSeats).anyMatch(e -> e==btn.getText());
+			if(alreadySelected) {
+				selectedSeats = Arrays.stream(selectedSeats).filter(el -> el!=btn.getText()).toArray(String[]::new);
+				selectedSeats = Arrays.stream(selectedSeats).filter(el -> el!=null).toArray(String[]::new);
+				btn.getStyleClass().remove("selected-seats");
 			}
 			else {
-				selectedSeats = this.getUpdatedSelection(selectedSeats, 1, btn.getText()).clone();
-				btn.getStyleClass().add("current-seats");
-				break;
+				selectedSeats = Arrays.copyOf(selectedSeats, selectedSeats.length+1).clone();
+				selectedSeats[selectedSeats.length - 1] = btn.getText();
+				btn.getStyleClass().add("selected-seats");
 			}
-		}
+//		System.out.println(btn.getStyleClass() + " "+ selectedSeats.toString());
 	}
 
 }

@@ -1,5 +1,5 @@
-.selected-seats{
-	-fx-background-color : "blue";
+.booked-seats{
+	-fx-background-color : "grey";
 	-fx-background-radius: 20.0;
 	-fx-pref-width: 80px;
 	-fx-pref-height: 80px;
@@ -16,6 +16,6 @@
 	-fx-opacity : 0.8;
 	-fx-cursor: hand;
 }
-.current-seats{
-	-fx-background-color : "grey";
+.selected-seats{
+	-fx-background-color : "blue";
 }
