@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 
 public class SelectSeats implements Initializable {
@@ -21,7 +22,14 @@ public class SelectSeats implements Initializable {
 	@FXML
 //	private GridPane selectSeatsWrap;
 	private AnchorPane seatsPane;
+	@FXML
 	private ScrollPane scrollPane;
+	@FXML
+	private HBox premiumHbox;
+	@FXML
+	private HBox normalHbox;
+	@FXML
+	private HBox vipHbox;
 	
 	public String getSeatCode(int num) {
 		char[] chs = new char[10];
@@ -75,26 +83,44 @@ public class SelectSeats implements Initializable {
 //		double paneWidth = scrollPane.getWidth();
 		double paneWidth = Screen.getPrimary().getBounds().getWidth();
 		seatsPane.setPrefWidth(paneWidth);
-		GridPane selectSeatsWrap = new GridPane();
-		selectSeatsWrap.setVgap(10);
-		selectSeatsWrap.setHgap(10);
-		selectSeatsWrap.setLayoutX(176);
-		selectSeatsWrap.setLayoutY(126);
-		selectSeatsWrap.setPadding(new Insets(10, 0, 100, 0));
-//		selectSeatsWrap.setPrefSize(900, 1800);
-		for (int i = 0; i<200; i++) {
+		GridPane selectSeatsWrap1 = new GridPane();
+//		selectSeatsWrap1.setVgap(10);
+		selectSeatsWrap1.setHgap(10);
+		GridPane selectSeatsWrap2 = new GridPane();
+		selectSeatsWrap2.setVgap(10);
+		selectSeatsWrap2.setHgap(10);
+		GridPane selectSeatsWrap3 = new GridPane();
+//		selectSeatsWrap3.setVgap(10);
+		selectSeatsWrap3.setHgap(10);
+		for (int i = 199; i>=0; i--) {
+			boolean isBooked = false;
 			String str = this.getSeatCode(i);
 			Button btn = new Button();
 			btn.setText(str);
-			if(i<10 || i>=190) {
+			if(i%3==0){
+				isBooked = true;
+			}
+			if(isBooked) {
 				btn.getStyleClass().add("booked-seats");
 			}else {
 				btn.getStyleClass().add("available-seats");
-				btn.setOnAction(event -> handleSelection(event));;
+				btn.setOnAction(event -> handleSelection(event));
 			}
-			selectSeatsWrap.add(btn, i%10, i/10);
+			if(i>=190){
+				selectSeatsWrap1.add(btn, i%10, i/10);
+			}
+			else if(i<10) {
+				selectSeatsWrap3.add(btn, i%10, i/10);
+			}else {
+				selectSeatsWrap2.add(btn, i%10, 18-i/10);
+			}
 		}
-		seatsPane.getChildren().add(selectSeatsWrap);
+		premiumHbox.setPadding(new Insets(10, 0, 50, 0));
+		normalHbox.setPadding(new Insets(10, 0, 100, 0));
+		vipHbox.setPadding(new Insets(10, 0, 100, 0));
+		premiumHbox.getChildren().add(selectSeatsWrap1);
+		normalHbox.getChildren().add(selectSeatsWrap2);
+		vipHbox.getChildren().add(selectSeatsWrap3);
 	}
 	
 	public void handleSelection(ActionEvent event) {
