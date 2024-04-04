@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -75,6 +76,7 @@ public class SelectSeats implements Initializable {
 		selectSeatsWrap.setHgap(10);
 		selectSeatsWrap.setLayoutX(176);
 		selectSeatsWrap.setLayoutY(126);
+		selectSeatsWrap.setPadding(new Insets(10, 0, 100, 0));
 //		selectSeatsWrap.setPrefSize(900, 1800);
 		for (int i = 0; i<200; i++) {
 			String str = this.getSeatCode(i);
