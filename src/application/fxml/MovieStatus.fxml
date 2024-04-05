@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 <?xml-model ?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MovieStatusController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MovieStatusController">
    <children>
       <AnchorPane layoutX="128.0" layoutY="42.0" prefHeight="581.0" prefWidth="944.0" style="-fx-background-color: grey;">
          <children>
@@ -20,18 +21,18 @@
                      <children>
                         <Pane fx:id="movieImg" prefHeight="234.0" prefWidth="944.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" layoutY="166.0" prefHeight="39.0" prefWidth="944.0">
+                              <HBox layoutY="166.0" prefHeight="39.0" prefWidth="944.0">
                                  <children>
-                                    <Text fx:id="movieTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="506.13671875">
+                                    <Label fx:id="movieTitle" prefHeight="39.0" prefWidth="590.0" text="Movie Title" textAlignment="JUSTIFY" wrapText="true">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="System Bold" size="14.0" />
                                        </font>
-                                    </Text>
-                                    <Text fx:id="movieRating" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="274.13671875">
+                                    </Label>
+                                    <Label fx:id="movieRating" prefHeight="39.0" prefWidth="458.0" text="Rating" wrapText="true">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="System Bold" size="14.0" />
                                        </font>
-                                    </Text>
+                                    </Label>
                                  </children>
                               </HBox>
                            </children>
@@ -53,9 +54,6 @@
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin>
                                     </Text>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Release Date : " wrappingWidth="103.13671875">
                                        <font>
@@ -85,12 +83,12 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </VBox>
-                              <Text fx:id="movieDescription" layoutX="100.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="519.13671875" />
-                              <Text fx:id="movieGener" layoutX="64.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="144.0" />
-                              <Text fx:id="movieReleaseDate" layoutX="110.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="190.13671875" />
-                              <Text fx:id="movieAvailableSeat" layoutX="119.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="108.13671875" />
-                              <Text fx:id="movieNextShow" layoutX="97.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="390.13671875" />
-                              <Text fx:id="movieActors" layoutX="69.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="374.13671875" />
+                              <Label fx:id="movieDescription" layoutX="101.0" layoutY="73.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieReleaseDate" layoutX="109.0" layoutY="131.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieAvailableSeat" layoutX="118.0" layoutY="160.0" prefHeight="20.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieNextShow" layoutX="98.0" layoutY="189.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieActors" layoutX="68.0" layoutY="218.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
+                              <Label fx:id="movieGener" layoutX="65.0" layoutY="101.0" prefHeight="19.0" prefWidth="506.0" text="Label" />
                            </children>
                         </Pane>
                         <Pane prefHeight="331.0" prefWidth="350.0">

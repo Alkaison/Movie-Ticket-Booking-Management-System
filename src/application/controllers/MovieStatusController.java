@@ -1,131 +1,67 @@
 package application.controllers;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import org.sqlite.SQLiteDataSource;
 
-import application.utils.DBUtility;
-import application.utils.Movie;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
-public class MovieStatusController {
+import javafx.scene.layout.Pane;
+
+public class MovieStatusController implements Initializable{
+
     @FXML
-    private Text movieActors, movieAvailableSeat, movieDescription;
+    private Label movieActors;
+
     @FXML
-    private Text movieTitle, movieGener, movieReleaseDate, movieRating, movieNextShow;
+    private Label movieAvailableSeat;
+
+    @FXML
+    private Label movieDescription;
 
     @FXML
     private Pane movieImg;
 
-	private String showDate;	
+    @FXML
+    private Label movieNextShow;
+
+    @FXML
+    private Label movieRating;
+
+    @FXML
+    private Label movieReleaseDate;
+
+    @FXML
+    private Label movieTitle , movieGener;
+   
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+	}
 	
-	private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
-
-	public void setMovieData(String name, String gener, String rating, String releaseDate) {
-        try {
-            movieTitle.setText(name);
-            movieGener.setText(gener);
-            movieRating.setText(rating);
-            movieReleaseDate.setText(releaseDate);
-            
-            setMovieDetails(name);   
-            
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }	
-
-	void setMovieDetails(String movieTitle) {
-        String searchQuery = "SELECT * FROM movies WHERE name = ?";
-        List<Movie> searchResults = searchMoviesInDatabase(searchQuery, movieTitle);
-  
-        if (!searchResults.isEmpty()) {
-            Movie selectedMovie = searchResults.get(0);
-            
-            movieDescription.setText(selectedMovie.getMovieDescription());
-            movieAvailableSeat.setText(String.valueOf(selectedMovie.getTotalSeat() - selectedMovie.getBookedSeat()));
-            movieNextShow.setText(displayNextShow(selectedMovie.getNextShow()));
-            movieActors.setText(selectedMovie.getMovieActor());
-            
-        } else {
-            System.out.println("Movie not found!");
-        }
-        
+	public void setMovieData(String name,String gener, String rating, String releaseDate) {
+		try {
+			
+			movieTitle.setText(name);
+			movieGener.setText(gener);
+			movieRating.setText(rating);
+			movieReleaseDate.setText(releaseDate);
+			
+			System.out.println("Clicked Movie Details:");
+			System.out.println("Name: " + name);
+			System.out.println("Gener: " + gener);
+			System.out.println("Rating: " + rating);
+			System.out.println("Release Date: " +releaseDate) ;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
     }
 
-	
-//	NextShow date & time display
-	 String displayNextShow(String nextShow) {
-	        SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-	        SimpleDateFormat sdfOutputDate = new SimpleDateFormat("dd-MM-yyyy");
-	        SimpleDateFormat sdfOutputTime = new SimpleDateFormat("hh:mm a");
-
-	        String[] showTimings = nextShow.split(",");
-	        Set<String> uniqueTimes = new HashSet<>();
-	        StringBuilder formattedNextShow = new StringBuilder();
-
-	        for (String timing : showTimings) {
-	            try {
-	            	
-	            	Date parsedDate1 = sdfInput.parse(nextShow.trim());
-	                String formattedDate = sdfOutputDate.format(parsedDate1);
-	                showDate = formattedDate;
-	                
-	                Date parsedDate = sdfInput.parse(timing.trim());
-	                String formattedTime = sdfOutputTime.format(parsedDate);
-
-	                if (!uniqueTimes.contains(formattedTime)) {
-	                    uniqueTimes.add(formattedTime);
-	                    formattedNextShow.append(formattedTime).append(" , ");
-	                }
-	            } catch (ParseException e) {
-	                System.out.println("Error parsing next show timing: " + e.getMessage());
-	            }
-	        }
-	        return (showDate+" "+formattedNextShow.toString());
-	    }
-	
-	 List<Movie> searchMoviesInDatabase(String searchQuery, String movieTitle) {
-	        List<Movie> movies = new ArrayList<>();
-	        Connection con = null;
-	        PreparedStatement ps = null;
-	        ResultSet rs = null;
-
-	        try {
-//	        	connect DB
-	        	SQLiteDataSource ds = new SQLiteDataSource();
-				ds.setUrl(DB_URL);
-				
-	            con = ds.getConnection();
-	            ps = con.prepareStatement(searchQuery);
-	            ps.setString(1, movieTitle);
-	            rs = ps.executeQuery();
-
-	            DBUtility.getMoviesData(rs, movies);
-
-	        } catch (Exception e) {
-	            System.out.println(e.toString());
-	        } finally {
-	            try {
-	                if (rs != null) rs.close();
-	                if (ps != null) ps.close();
-	                if (con != null) con.close();
-	            } catch (Exception e) {
-	                System.out.println(e.toString());
-	            }
-	        }
-	        return movies;
-	    }
-	 
 }
+
+	
+
+   
