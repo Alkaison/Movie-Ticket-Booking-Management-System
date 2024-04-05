@@ -193,37 +193,38 @@ public class DBUtility {
 	}
 
 //	Fetch Movies Table data
-public static void getMoviesData(ResultSet rs, List<Movie> movies) {
-	try {
-		while (rs.next()) {
-			String getMovieName = rs.getString("name");
-			String getMovieDescription = rs.getString("description");
-			String getMovieRating = rs.getString("ratings");
-			String getMovieGener = rs.getString("gener");
-			String getMovieRealeseDateTime = rs.getString("releaseDate");
-			int getBoookedSeat = rs.getInt("bookedSeatsCount");
-			int getTotalSeat = rs.getInt("totalNumberOfSeats");
-			String getNextShow = rs.getString("showDatesAndTimings");
+	public static void getMoviesData(ResultSet rs, List<Movie> movies) {
+	    try {
+	        while (rs.next()) {
+	            String getMovieName = rs.getString("name");
+	            String getMovieDescription = rs.getString("description");
+	            String getMovieRating = rs.getString("ratings");
+	            String getMovieGener = rs.getString("gener");
+	            String getMovieRealeseDateTime = rs.getString("releaseDate");
+	            int getBoookedSeat = rs.getInt("bookedSeatsCount");
+	            int getTotalSeat = rs.getInt("totalNumberOfSeats");
+	            String getNextShow = rs.getString("showDatesAndTimings");
+	            String getActorsList = rs.getString("actorsList");
+	            
+	            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd-MM-yyyy");
+	            String getMovieRealeseDate = sdfOutput.format(sdfInput.parse(getMovieRealeseDateTime.toString()));
+	            
+	            Movie movie = new Movie();
+	            movie.setMovieName(getMovieName);
+	            movie.setMovieDescription(getMovieDescription);
+	            movie.setMovieRating(getMovieRating);
+	            movie.setMovieGener(getMovieGener);
+	            movie.setMovieRealeseDate(getMovieRealeseDate);
+	            movie.setBookedSeat(getBoookedSeat);
+	            movie.setTotalSeat(getTotalSeat);
+	            movie.setNextShow(getNextShow);
+	            movie.setMovieActor(getActorsList);
 
-			SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat sdfOutput = new SimpleDateFormat("dd-MM-yyyy");
-			String getMovieRealeseDate = sdfOutput.format(sdfInput.parse(getMovieRealeseDateTime.toString()));
-			
-			Movie movie = new Movie();
-			movie.setMovieName(getMovieName);
-			movie.setMovieDescription(getMovieDescription);
-			movie.setMovieRating(getMovieRating);
-			movie.setMovieGener(getMovieGener);
-			movie.setMovieRealeseDate(getMovieRealeseDate);
-			movie.setBookedSeat(getBoookedSeat);
-			movie.setTotalSeat(getTotalSeat);
-			movie.setNextShow(getNextShow);
-
-			
-			movies.add(movie);
-		}
-	} catch (Exception e) {
-		System.out.println(e.toString());
+	            movies.add(movie);
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e.toString());
+	    }
 	}
-}
 }
