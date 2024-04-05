@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class selectPayment implements Initializable {
+public class SelectPayment implements Initializable {
 
 	@FXML
 	private Label MovieTitle;
