@@ -1,15 +1,26 @@
 package application.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SelectPayment implements Initializable {
+
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
 
 	@FXML
 	private Label MovieTitle;
@@ -26,6 +37,21 @@ public class SelectPayment implements Initializable {
 	@FXML
 	private Button paymentButton3;
 
+	@FXML
+	private Button cancelPaymentBtn;
+
+	public void handlePaymentCancelledBtnClicked(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/Dashboard.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
+
+		stage.setMaximized(true);
+		stage.setScene(scene);
+		stage.show();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setTitleAndPrice();
@@ -34,14 +60,14 @@ public class SelectPayment implements Initializable {
 	// hover animation for cards
 	@FXML
 	void hover(MouseEvent event) {
-		Button button = ((Button)event.getSource());
+		Button button = ((Button) event.getSource());
 		button.setStyle("-fx-scale-x: 1.04;");
 	}
 
 	// remove hover animation for cards
 	@FXML
 	void Removehover(MouseEvent event) {
-		Button button = ((Button)event.getSource());
+		Button button = ((Button) event.getSource());
 		button.setStyle("-fx-scale-x: 1.0;");
 	}
 
@@ -56,5 +82,17 @@ public class SelectPayment implements Initializable {
 	@FXML
 	void onaction(ActionEvent event) {
 		// Page Changing Logic ----
+	}
+
+	public void handleUpiPaymentOptionClick(ActionEvent event) {
+		System.out.println("UPI Selected");
+	}
+
+	public void handleCreditDebitCardOptionClick(ActionEvent event) {
+		System.out.println("Credit Debit Selected");
+	}
+
+	public void handleCashOptionClick(ActionEvent event) {
+		System.out.println("Cash Option Selected");
 	}
 }
