@@ -52,6 +52,7 @@ public class MovieCardController {
 
 //   set to display data to screen
 	public void setData(Movie movie) {
+		setMovieImg.setImage(movie.getMoviePoster());
 		setMovieName.setText(movie.getMovieName());
 		setMovieRating.setText(movie.getMovieRating());
 		setMovieGener.setText(movie.getMovieGener());

@@ -200,6 +200,7 @@ public class DBUtility {
 	            String getMovieDescription = rs.getString("description");
 	            String getMovieRating = rs.getString("ratings");
 	            String getMovieGener = rs.getString("gener");
+	            String getMoviePosterURL = rs.getString("posterImage");
 	            String getMovieRealeseDateTime = rs.getString("releaseDate");
 	            int getBoookedSeat = rs.getInt("bookedSeatsCount");
 	            int getTotalSeat = rs.getInt("totalNumberOfSeats");
@@ -217,6 +218,7 @@ public class DBUtility {
 	            movie.setMovieGener(getMovieGener);
 	            movie.setMovieRealeseDate(getMovieRealeseDate);
 	            movie.setBookedSeat(getBoookedSeat);
+	            movie.setMoviePoster(getMoviePosterURL);
 	            movie.setTotalSeat(getTotalSeat);
 	            movie.setNextShow(getNextShow);
 	            movie.setMovieActor(getActorsList);
