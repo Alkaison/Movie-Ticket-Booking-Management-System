@@ -10,7 +10,7 @@
 
 #anchor{
 	-fx-background-radius: 10;  /*top-left , top-right , bottom-right , bottom-left */
-  	-fx-background-color: red;
+  	-fx-background-color: #c1121f;
 	-fx-effect: dropshadow(three-pass-box , grey, 10, 0.5, 3, 3); /* width, opacity ,x-move , y-move*/
 }
 #anchor:hover {	

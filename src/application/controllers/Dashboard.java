@@ -72,7 +72,7 @@ public class Dashboard implements Initializable {
 			dashboardContentHboxContainer.getChildren().setAll(fxml);
 		} else if (clickedButton == moviesBtn) {
 			// Handle movies button click
-			Parent fxml = FXMLLoader.load(getClass().getResource("/application/fxml/Movies.fxml"));
+			Parent fxml = FXMLLoader.load(getClass().getResource("/application/fxml/ShowAllMovies.fxml"));
 			dashboardContentHboxContainer.getChildren().removeAll();
 			dashboardContentHboxContainer.getChildren().setAll(fxml);
 		} else if (clickedButton == bookingsBtn) {

@@ -1,21 +1,30 @@
 package application.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 //import javafx.stage.Screen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 public class SelectSeats implements Initializable {
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
 
 	public String selectedSeats[] = {};
 
@@ -30,6 +39,33 @@ public class SelectSeats implements Initializable {
 	private HBox normalHbox;
 	@FXML
 	private HBox vipHbox;
+
+	@FXML
+	private Button proceedToPaymentBtn, cancelBtn;
+
+	public void handleCancelBtnClick(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/Dashboard.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
+
+		stage.setMaximized(true);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void handleProceedToPaymentPageClick(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/SelectPayment.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
+
+		stage.setMaximized(true);
+		stage.setScene(scene);
+		stage.show();
+	}
 
 	public String getSeatCode(int num) {
 		char[] chs = new char[10];
