@@ -2,9 +2,13 @@ package application.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -68,5 +72,62 @@ public class JSONUtility {
 			this.phoneNumber = phoneNumber;
 			this.cityName = cityName;
 		}
+	}
+
+	// check if the userdata.json has userId and email values for auto-login from
+	// welcome screen
+	public static boolean userIsLoggedIn() {
+		// Path to the userdata.json file
+		String filePath = "src/application/database/userdata.json";
+
+		// Try-with-resources to automatically close the FileReader
+		try (FileReader reader = new FileReader(filePath)) {
+			// Parse JSON file
+			JsonElement jsonElement = JsonParser.parseReader(reader);
+			JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+			// Check if JSON contains userId and email fields
+			return jsonObject.has("userId") && !jsonObject.get("userId").isJsonNull() && jsonObject.has("email")
+					&& !jsonObject.get("email").isJsonNull() && !jsonObject.get("userId").getAsString().isEmpty()
+					&& !jsonObject.get("email").getAsString().isEmpty();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// If user is not found
+		return false;
+	}
+
+	// remove user details from userdata.json for logout from dashboard
+	public static boolean removeValuesAndSave() {
+		// Path to the userdata.json file
+		String filePath = "src/application/database/userdata.json";
+
+		try {
+			// Read JSON file
+			FileReader reader = new FileReader(filePath);
+			JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+			reader.close();
+
+			// Modify JSON object
+			jsonObject.addProperty("userId", "");
+			jsonObject.addProperty("email", "");
+			jsonObject.addProperty("firstName", "");
+			jsonObject.addProperty("lastName", "");
+			jsonObject.addProperty("phoneNumber", "");
+			jsonObject.addProperty("cityName", "");
+
+			// Write modified JSON back to file
+			FileWriter writer = new FileWriter(filePath);
+			Gson gson = new Gson();
+			gson.toJson(jsonObject, writer);
+			writer.close();
+
+			return true; // Modification successful
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return false; // Modification failed
 	}
 }
