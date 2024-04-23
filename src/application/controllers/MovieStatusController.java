@@ -43,8 +43,6 @@ public class MovieStatusController {
 	@FXML
 	private Pane movieImg;
 
-	private String showDate;
-
 	private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
 
 	public void handleBackBtnClicked(ActionEvent event) throws IOException {
@@ -85,7 +83,7 @@ public class MovieStatusController {
 		}
 	}
 
-	void setMovieDetails(String movieTitle) {
+	public void setMovieDetails(String movieTitle) {
 		String searchQuery = "SELECT * FROM movies WHERE name = ?";
 		List<Movie> searchResults = searchMoviesInDatabase(searchQuery, movieTitle);
 
@@ -104,27 +102,25 @@ public class MovieStatusController {
 	}
 
 //	NextShow date & time display
-	String displayNextShow(String nextShow) {
-		SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	public String displayNextShow(String nextShow) {
+		SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat sdfOutputDate = new SimpleDateFormat("dd-MM-yyyy");
 		SimpleDateFormat sdfOutputTime = new SimpleDateFormat("hh:mm a");
 
 		String[] showTimings = nextShow.split(",");
 		Set<String> uniqueTimes = new HashSet<>();
 		StringBuilder formattedNextShow = new StringBuilder();
+		String showDate = "";
 
 		for (String timing : showTimings) {
 			try {
-
-				Date parsedDate1 = sdfInput.parse(nextShow.trim());
-				String formattedDate = sdfOutputDate.format(parsedDate1);
-				showDate = formattedDate;
-
 				Date parsedDate = sdfInput.parse(timing.trim());
 				String formattedTime = sdfOutputTime.format(parsedDate);
+				String formattedDate = sdfOutputDate.format(parsedDate);
 
 				if (!uniqueTimes.contains(formattedTime)) {
 					uniqueTimes.add(formattedTime);
+					showDate = formattedDate;
 					formattedNextShow.append(formattedTime).append(" , ");
 				}
 			} catch (ParseException e) {
@@ -134,7 +130,7 @@ public class MovieStatusController {
 		return (showDate + " " + formattedNextShow.toString());
 	}
 
-	List<Movie> searchMoviesInDatabase(String searchQuery, String movieTitle) {
+	public List<Movie> searchMoviesInDatabase(String searchQuery, String movieTitle) {
 		List<Movie> movies = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement ps = null;

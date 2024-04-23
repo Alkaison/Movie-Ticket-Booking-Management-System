@@ -194,39 +194,175 @@ public class DBUtility {
 
 //	Fetch Movies Table data
 	public static void getMoviesData(ResultSet rs, List<Movie> movies) {
-	    try {
-	        while (rs.next()) {
-	            String getMovieName = rs.getString("name");
-	            String getMovieDescription = rs.getString("description");
-	            String getMovieRating = rs.getString("ratings");
-	            String getMovieGener = rs.getString("gener");
-	            String getMoviePosterURL = rs.getString("posterImage");
-	            String getMovieRealeseDateTime = rs.getString("releaseDate");
-	            int getBoookedSeat = rs.getInt("bookedSeatsCount");
-	            int getTotalSeat = rs.getInt("totalNumberOfSeats");
-	            String getNextShow = rs.getString("showDatesAndTimings");
-	            String getActorsList = rs.getString("actorsList");
-	            
-	            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd-MM-yyyy");
-	            String getMovieRealeseDate = sdfOutput.format(sdfInput.parse(getMovieRealeseDateTime.toString()));
-	            
-	            Movie movie = new Movie();
-	            movie.setMovieName(getMovieName);
-	            movie.setMovieDescription(getMovieDescription);
-	            movie.setMovieRating(getMovieRating);
-	            movie.setMovieGener(getMovieGener);
-	            movie.setMovieRealeseDate(getMovieRealeseDate);
-	            movie.setBookedSeat(getBoookedSeat);
-	            movie.setMoviePoster(getMoviePosterURL);
-	            movie.setTotalSeat(getTotalSeat);
-	            movie.setNextShow(getNextShow);
-	            movie.setMovieActor(getActorsList);
+		try {
+			while (rs.next()) {
+				String getMovieName = rs.getString("name");
+				String getMovieDescription = rs.getString("description");
+				String getMovieRating = rs.getString("ratings");
+				String getMovieGener = rs.getString("gener");
+				String getMoviePosterURL = rs.getString("posterImage");
+				String getMovieRealeseDateTime = rs.getString("releaseDate");
+				int getBoookedSeat = rs.getInt("bookedSeatsCount");
+				int getTotalSeat = rs.getInt("totalNumberOfSeats");
+				String getNextShow = rs.getString("showDatesAndTimings");
+				String getActorsList = rs.getString("actorsList");
 
-	            movies.add(movie);
-	        }
-	    } catch (Exception e) {
-	        System.out.println(e.toString());
-	    }
+				SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				SimpleDateFormat sdfOutput = new SimpleDateFormat("dd-MM-yyyy");
+				String getMovieRealeseDate = sdfOutput.format(sdfInput.parse(getMovieRealeseDateTime.toString()));
+
+				Movie movie = new Movie();
+				movie.setMovieName(getMovieName);
+				movie.setMovieDescription(getMovieDescription);
+				movie.setMovieRating(getMovieRating);
+				movie.setMovieGener(getMovieGener);
+				movie.setMovieRealeseDate(getMovieRealeseDate);
+				movie.setBookedSeat(getBoookedSeat);
+				movie.setMoviePoster(getMoviePosterURL);
+				movie.setTotalSeat(getTotalSeat);
+				movie.setNextShow(getNextShow);
+				movie.setMovieActor(getActorsList);
+
+				movies.add(movie);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
 	}
+
+	// get total revenue of our system
+	public static double calculateTotalPrice() {
+		double total = 0;
+		Connection conn = null;
+
+		try {
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(DB_URL);
+
+			conn = ds.getConnection();
+
+			String query = "SELECT totalPrice FROM booked_ticket";
+			try (PreparedStatement statement = conn.prepareStatement(query)) {
+				ResultSet resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					double totalPrice = resultSet.getDouble("totalPrice");
+					total += totalPrice;
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Error calculating total price: " + e.getMessage());
+		}
+
+		return total;
+	}
+
+	// get total count of movies
+	public static int countMovies() {
+		// Initialize connection and count
+		int movieCount = 0;
+		Connection conn = null;
+
+		try {
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(DB_URL);
+
+			conn = ds.getConnection();
+
+			// SQL query to count rows in the movies table
+			String sql = "SELECT COUNT(*) AS count FROM movies";
+
+			try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				// Execute the query
+				try (ResultSet rs = pstmt.executeQuery()) {
+					// Get the count from the result set
+					if (rs.next()) {
+						movieCount = rs.getInt("count");
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return movieCount;
+	}
+
+	// get total tickets sold
+	public static int totalTicketsSold() {
+		// Initialize connection and count
+		int ticketCount = 0;
+		Connection conn = null;
+
+		try {
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(DB_URL);
+
+			conn = ds.getConnection();
+
+			// SQL query to count rows in the booked_ticket table
+			String sql = "SELECT COUNT(*) AS count FROM booked_ticket";
+
+			try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				// Execute the query
+				try (ResultSet rs = pstmt.executeQuery()) {
+					// Get the count from the result set
+					if (rs.next()) {
+						ticketCount = rs.getInt("count");
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ticketCount;
+	}
+
+	// fetch count of types of tickets booked
+	public static int[] countTicketsByType() {
+		// Initialize connection and ticket counts
+		int[] ticketCounts = new int[3]; // Index 0: Premium, Index 1: VIP, Index 2: Standard
+
+		Connection conn = null;
+
+		try {
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(DB_URL);
+
+			conn = ds.getConnection();
+
+			// SQL query to select the type of ticket and count the number of seats booked
+			String sql = "SELECT seatClass, SUM(numberOfSeats) AS totalSeats FROM booked_ticket GROUP BY seatClass";
+
+			try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				// Execute the query
+				try (ResultSet rs = pstmt.executeQuery()) {
+					// Iterate over the result set
+					while (rs.next()) {
+						String seatClass = rs.getString("seatClass");
+						int totalSeats = rs.getInt("totalSeats");
+
+						// Update ticket counts based on the seat class
+						switch (seatClass) {
+						case "Premium":
+							ticketCounts[0] += totalSeats;
+							break;
+						case "VIP":
+							ticketCounts[1] += totalSeats;
+							break;
+						case "Standard":
+							ticketCounts[2] += totalSeats;
+							break;
+						default:
+							// Handle unrecognized seat classes, if any
+							break;
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ticketCounts;
+	}
+
 }

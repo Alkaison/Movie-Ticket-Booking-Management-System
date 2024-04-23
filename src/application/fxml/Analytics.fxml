@@ -21,7 +21,7 @@
                   <Image url="@../resources/icons/analytics-ticket-icon.png" />
                </image>
             </ImageView>
-            <Label layoutX="147.0" layoutY="43.0" text="136" textFill="WHITE">
+            <Label fx:id="totalTicketsSoldLabel" layoutX="147.0" layoutY="43.0" text="136" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="56.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Image url="@../resources/icons/analytics-money-icon.png" />
                </image>
             </ImageView>
-            <Label layoutX="150.0" layoutY="46.0" text="2,543" textFill="WHITE">
+            <Label fx:id="totalRevenueAmountLabel" layoutX="150.0" layoutY="46.0" text="2,543" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="56.0" />
                </font>
@@ -51,7 +51,7 @@
                   <Image url="@../resources/icons/analytics-movies-icon.png" />
                </image>
             </ImageView>
-            <Label layoutX="163.0" layoutY="48.0" text="51" textFill="WHITE">
+            <Label fx:id="availableMoviesLabel" layoutX="155.0" layoutY="48.0" text="51" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="56.0" />
                </font>

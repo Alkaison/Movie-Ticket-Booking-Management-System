@@ -3,11 +3,13 @@ package application.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.utils.DBUtility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class Analytics implements Initializable {
@@ -27,18 +29,39 @@ public class Analytics implements Initializable {
 	@FXML
 	private LineChart<String, Number> lineChart;
 
+	@FXML
+	private Label totalRevenueAmountLabel, availableMoviesLabel, totalTicketsSoldLabel;
+
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		addDataToPieChart();
 		addDataToLineChart();
+
+		// total ticket sold
+		int totalTicketsSoldCount = DBUtility.totalTicketsSold();
+		String totalTicketSoldString = String.valueOf(totalTicketsSoldCount);
+		totalTicketsSoldLabel.setText(totalTicketSoldString);
+
+		// Total Revenue
+		double totalRevenueAmount = DBUtility.calculateTotalPrice();
+		int totalPriceInt = (int) totalRevenueAmount;
+		String totalPriceString = String.valueOf(totalPriceInt);
+		totalRevenueAmountLabel.setText(totalPriceString);
+
+		// Total Movies
+		int totalMoviesCount = DBUtility.countMovies();
+		String totalMoviesCountString = String.valueOf(totalMoviesCount);
+		availableMoviesLabel.setText(totalMoviesCountString);
 	}
 
 	// Method to add data to the pie chart
 	public void addDataToPieChart() {
+		int[] ticketCounts = DBUtility.countTicketsByType();
+
 		// Get the data list from the pie chart
-		PieChart.Data data1 = new PieChart.Data("Standard", 50);
-		PieChart.Data data2 = new PieChart.Data("Premium", 30);
-		PieChart.Data data3 = new PieChart.Data("VIP", 20);
+		PieChart.Data data1 = new PieChart.Data("Standard", ticketCounts[2]);
+		PieChart.Data data2 = new PieChart.Data("Premium", ticketCounts[0]);
+		PieChart.Data data3 = new PieChart.Data("VIP", ticketCounts[1]);
 
 		// Add data to the pie chart
 		pieChart.getData().addAll(data1, data2, data3);

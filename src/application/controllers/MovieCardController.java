@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -52,7 +53,8 @@ public class MovieCardController {
 
 //   set to display data to screen
 	public void setData(Movie movie) {
-		setMovieImg.setImage(movie.getMoviePoster());
+		Image image = movie.getMoviePoster();
+		setMovieImg.setImage(image);
 		setMovieName.setText(movie.getMovieName());
 		setMovieRating.setText(movie.getMovieRating());
 		setMovieGener.setText(movie.getMovieGener());

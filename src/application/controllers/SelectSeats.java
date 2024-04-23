@@ -31,11 +31,11 @@ public class SelectSeats implements Initializable {
 	private Scene scene;
 	private Parent root;
 
-	JSONUtility util;
+	public JSONUtility util;
 
 	public String selectedSeats[] = {};
 
-	int totalPrice = 0;
+	public int totalPrice = 0;
 
 	@FXML
 	// private GridPane selectSeatsWrap;
@@ -44,14 +44,14 @@ public class SelectSeats implements Initializable {
 	private ScrollPane scrollPane;
 	@FXML
 	private HBox premiumHbox, normalHbox, vipHbox;
-	
-	@FXML 
+
+	@FXML
 	private Label premiumPrice, normalPrice, vipPrice;
 
 	@FXML
 	private Button proceedToPaymentBtn, cancelBtn;
 
-	SelectSeats() {
+	public SelectSeats() {
 		this.util = new JSONUtility();
 	}
 
@@ -69,6 +69,7 @@ public class SelectSeats implements Initializable {
 
 	public void handleProceedToPaymentPageClick(ActionEvent event) throws IOException {
 		// util = new JSONUtility();
+		@SuppressWarnings("unused")
 		MovieData moviedata = util.getMovieJson();
 
 		util.updateMovieJson(selectedSeats, totalPrice);
