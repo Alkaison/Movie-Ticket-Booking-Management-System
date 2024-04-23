@@ -3,6 +3,7 @@ package application.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 //import javafx.stage.Screen;
 import javafx.event.ActionEvent;
@@ -20,6 +21,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import application.utils.JSONUtility;
+import application.utils.JSONUtility.MovieData;
 
 public class SelectSeats implements Initializable {
 	private Stage stage;
@@ -96,6 +100,12 @@ public class SelectSeats implements Initializable {
 		return seatNum;
 	}
 
+	public boolean checkAvailability(String seat, String[] booked){
+		List<String> list = Arrays.asList(booked);
+		boolean contains = list.contains(seat);
+		return contains;
+	}
+
 	public String[] getUpdatedSelection(String[] orgArr, int method, String el) {
 		String[] newArr = {};
 		// Addition of Seat
@@ -116,6 +126,13 @@ public class SelectSeats implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		JSONUtility util = new JSONUtility();
+		MovieData moviedata = util.getMovieJson();
+
+		if(moviedata == null){
+			cancelBtn.fire();;
+		}
+		
 //		double paneWidth = scrollPane.getWidth();
 		double paneWidth = Screen.getPrimary().getBounds().getWidth();
 		seatsPane.setPrefWidth(paneWidth);
@@ -133,9 +150,10 @@ public class SelectSeats implements Initializable {
 			String str = this.getSeatCode(i);
 			Button btn = new Button();
 			btn.setText(str);
-			if (i % 3 == 0) {
-				isBooked = true;
-			}
+			isBooked = this.checkAvailability(str, moviedata.bookedSeats);
+			// if (i % 3 == 0) {
+			// 	isBooked = true;
+			// }
 			if (isBooked) {
 				btn.getStyleClass().add("booked-seats");
 			} else {

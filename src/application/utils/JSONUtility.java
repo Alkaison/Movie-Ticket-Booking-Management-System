@@ -11,8 +11,12 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class JSONUtility {
+
+	String path_userdata = "rc/application/database/userdata.json";
+	String path_moviedata = "rc/application/database/moviedata.json";
 
 	// take ResultSet and store in userdata.json file
 	public static void storeUserDataFromResultSet(ResultSet rs) throws IOException, SQLException {
@@ -129,5 +133,71 @@ public class JSONUtility {
 		}
 
 		return false; // Modification failed
+	}
+	
+	public class MovieData {
+		public int id, price;
+		public String name, timing, booked, selected;
+		public String[] bookedSeats, selectedSeats;
+
+		// Constructor
+		public MovieData(int id, String name, String timing, String[] booked) {
+			this.id = id;
+			this.name = name;
+			this.timing = timing;
+			this.bookedSeats = booked;
+		}
+	}
+	
+	//	create and store new movies data into json
+	public boolean createMovieJson(int id, String name, String timing, String booked) {
+		try {
+			FileWriter writer = new FileWriter("src/application/database/moviedata.json");
+			Gson gson = new Gson();
+			MovieData moviedata = new MovieData(id, name, timing, booked.split(","));
+			gson.toJson(moviedata, writer);
+			writer.close();
+			return true;
+		} catch (Exception e) {
+			System.out.println("Error storing movie data");
+			return false;
+		}
+	}
+
+	// get movies data from json
+	public MovieData getMovieJson(){
+		try {
+			FileReader reader = new FileReader("src/application/database/moviedata.json");
+			Gson gson = new Gson();
+			MovieData moviedata = gson.fromJson(reader, MovieData.class);
+			reader.close();
+			return moviedata;
+		} catch (Exception e) {
+			System.out.println("Error updating movie data");
+			return null;
+		}
+	}
+
+	//	update movies data into json
+	public boolean updateMovieJson(String[] seats, int price) {
+		try {
+			FileReader reader = new FileReader("src/application/database/moviedata.json");
+			Gson gson = new Gson();
+			MovieData moviedata = gson.fromJson(reader, MovieData.class);
+			reader.close();
+
+			// Updation
+			String seatsStr = String.join(", ", seats);
+			FileWriter writer = new FileWriter("src/application/database/moviedata.json");
+			moviedata.selected = seatsStr;
+			moviedata.selectedSeats = seats;
+			moviedata.price = price;
+			gson.toJson(moviedata, writer);
+			writer.close();
+			return true;
+		} catch (Exception e) {
+			System.out.println("Error updating movie data");
+			return false;
+		}
 	}
 }
