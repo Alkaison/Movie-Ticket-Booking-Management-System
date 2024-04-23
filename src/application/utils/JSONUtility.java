@@ -15,8 +15,8 @@ import java.util.Date;
 
 public class JSONUtility {
 
-	static String path_userdata = "rc/application/database/userdata.json";
-	String path_moviedata = "rc/application/database/moviedata.json";
+	static String path_userdata = "src/application/database/userdata.json";
+	String path_moviedata = "src/application/database/moviedata.json";
 
 	// take ResultSet and store in userdata.json file
 	public static void storeUserDataFromResultSet(ResultSet rs) throws IOException, SQLException {
@@ -136,9 +136,9 @@ public class JSONUtility {
 	}
 	
 	public class MovieData {
-		public int id, price, basePrice;
+		public int id, price, basePrice, totalPrice = 0;
 		public String name, timing, booked, selected;
-		public String[] bookedSeats, selectedSeats;
+		public String[] bookedSeats = {}, selectedSeats = {};
 
 		// Constructor
 		public MovieData(int id, String name, String timing, String[] booked, int basePrice) {
