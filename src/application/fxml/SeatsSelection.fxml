@@ -34,7 +34,7 @@
                                                 <Font name="Bell MT" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="10.0" layoutY="10.0" text="Rs. 370" textFill="#f5f5f5">
+                                          <Label layoutX="10.0" fx:id="premiumPrice" layoutY="10.0" text="Rs. 370" textFill="#f5f5f5">
                                              <font>
                                                 <Font name="Bell MT" size="18.0" />
                                              </font>
@@ -52,7 +52,7 @@
                                                 <Font name="Bell MT" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="10.0" layoutY="10.0" text="Rs. 300" textFill="#f5f5f5">
+                                          <Label layoutX="10.0" fx:id="normalPrice" layoutY="10.0" text="Rs. 300" textFill="#f5f5f5">
                                              <font>
                                                 <Font name="Bell MT" size="18.0" />
                                              </font>
@@ -70,7 +70,7 @@
                                                 <Font name="Bell MT" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="10.0" layoutY="10.0" text="Rs. 420" textFill="#f5f5f5">
+                                          <Label layoutX="10.0" fx:id="vipPrice" layoutY="10.0" text="Rs. 420" textFill="#f5f5f5">
                                              <font>
                                                 <Font name="Bell MT" size="18.0" />
                                              </font>

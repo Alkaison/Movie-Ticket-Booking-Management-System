@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -30,22 +31,29 @@ public class SelectSeats implements Initializable {
 	private Scene scene;
 	private Parent root;
 
+	JSONUtility util;
+
 	public String selectedSeats[] = {};
 
+	int totalPrice = 0;
+
 	@FXML
-//	private GridPane selectSeatsWrap;
+	// private GridPane selectSeatsWrap;
 	private AnchorPane seatsPane;
 	@FXML
 	private ScrollPane scrollPane;
 	@FXML
-	private HBox premiumHbox;
-	@FXML
-	private HBox normalHbox;
-	@FXML
-	private HBox vipHbox;
+	private HBox premiumHbox, normalHbox, vipHbox;
+	
+	@FXML 
+	private Label premiumPrice, normalPrice, vipPrice;
 
 	@FXML
 	private Button proceedToPaymentBtn, cancelBtn;
+
+	SelectSeats() {
+		this.util = new JSONUtility();
+	}
 
 	public void handleCancelBtnClick(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/Dashboard.fxml"));
@@ -60,6 +68,11 @@ public class SelectSeats implements Initializable {
 	}
 
 	public void handleProceedToPaymentPageClick(ActionEvent event) throws IOException {
+		// util = new JSONUtility();
+		MovieData moviedata = util.getMovieJson();
+
+		util.updateMovieJson(selectedSeats, totalPrice);
+
 		root = FXMLLoader.load(getClass().getResource("/application/fxml/SelectPayment.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		double currentWidth = stage.getWidth();
@@ -100,7 +113,7 @@ public class SelectSeats implements Initializable {
 		return seatNum;
 	}
 
-	public boolean checkAvailability(String seat, String[] booked){
+	public boolean checkAvailability(String seat, String[] booked) {
 		List<String> list = Arrays.asList(booked);
 		boolean contains = list.contains(seat);
 		return contains;
@@ -126,25 +139,32 @@ public class SelectSeats implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		JSONUtility util = new JSONUtility();
+		// util = new JSONUtility();
 		MovieData moviedata = util.getMovieJson();
 
-		if(moviedata == null){
-			cancelBtn.fire();;
+		if (moviedata == null) {
+			cancelBtn.fire();
 		}
-		
-//		double paneWidth = scrollPane.getWidth();
+
+		int basePrice = moviedata.basePrice;
+
+		premiumPrice.setText("Rs. " + Integer.toString(basePrice + 50));
+		normalPrice.setText("Rs. " + Integer.toString(basePrice));
+		vipPrice.setText("Rs. " + Integer.toString(basePrice + 70));
+
+		// double paneWidth = scrollPane.getWidth();
 		double paneWidth = Screen.getPrimary().getBounds().getWidth();
 		seatsPane.setPrefWidth(paneWidth);
 		GridPane selectSeatsWrap1 = new GridPane();
-//		selectSeatsWrap1.setVgap(10);
+		// selectSeatsWrap1.setVgap(10);
 		selectSeatsWrap1.setHgap(10);
 		GridPane selectSeatsWrap2 = new GridPane();
 		selectSeatsWrap2.setVgap(10);
 		selectSeatsWrap2.setHgap(10);
 		GridPane selectSeatsWrap3 = new GridPane();
-//		selectSeatsWrap3.setVgap(10);
+		// selectSeatsWrap3.setVgap(10);
 		selectSeatsWrap3.setHgap(10);
+
 		for (int i = 199; i >= 0; i--) {
 			boolean isBooked = false;
 			String str = this.getSeatCode(i);
@@ -152,7 +172,7 @@ public class SelectSeats implements Initializable {
 			btn.setText(str);
 			isBooked = this.checkAvailability(str, moviedata.bookedSeats);
 			// if (i % 3 == 0) {
-			// 	isBooked = true;
+			// isBooked = true;
 			// }
 			if (isBooked) {
 				btn.getStyleClass().add("booked-seats");
@@ -161,10 +181,13 @@ public class SelectSeats implements Initializable {
 				btn.setOnAction(event -> handleSelection(event));
 			}
 			if (i >= 190) {
+				totalPrice = !isBooked ? totalPrice + basePrice + 50 : totalPrice;
 				selectSeatsWrap1.add(btn, i % 10, i / 10);
 			} else if (i < 10) {
+				totalPrice = !isBooked ? totalPrice + basePrice + 70 : totalPrice;
 				selectSeatsWrap3.add(btn, i % 10, i / 10);
 			} else {
+				totalPrice = !isBooked ? totalPrice + basePrice : totalPrice;
 				selectSeatsWrap2.add(btn, i % 10, 18 - i / 10);
 			}
 		}
@@ -178,7 +201,7 @@ public class SelectSeats implements Initializable {
 
 	public void handleSelection(ActionEvent event) {
 		Button btn = ((Button) event.getSource());
-//		System.out.println(btn.getStyleClass());
+		// System.out.println(btn.getStyleClass());
 		boolean alreadySelected = Arrays.stream(selectedSeats).anyMatch(e -> e == btn.getText());
 		if (alreadySelected) {
 			selectedSeats = Arrays.stream(selectedSeats).filter(el -> el != btn.getText()).toArray(String[]::new);
@@ -189,7 +212,7 @@ public class SelectSeats implements Initializable {
 			selectedSeats[selectedSeats.length - 1] = btn.getText();
 			btn.getStyleClass().add("selected-seats");
 		}
-//		System.out.println(btn.getStyleClass() + " "+ selectedSeats.toString());
+		// System.out.println(btn.getStyleClass() + " "+ selectedSeats.toString());
 	}
 
 }

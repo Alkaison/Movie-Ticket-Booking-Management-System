@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class JSONUtility {
 
-	String path_userdata = "rc/application/database/userdata.json";
+	static String path_userdata = "rc/application/database/userdata.json";
 	String path_moviedata = "rc/application/database/moviedata.json";
 
 	// take ResultSet and store in userdata.json file
@@ -55,7 +55,7 @@ public class JSONUtility {
 		String jsonString = gson.toJson(user);
 
 		// Write JSON string to file
-		try (FileWriter writer = new FileWriter("src/application/database/userdata.json")) {
+		try (FileWriter writer = new FileWriter(path_userdata)) {
 			writer.write(jsonString);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,25 +136,26 @@ public class JSONUtility {
 	}
 	
 	public class MovieData {
-		public int id, price;
+		public int id, price, basePrice;
 		public String name, timing, booked, selected;
 		public String[] bookedSeats, selectedSeats;
 
 		// Constructor
-		public MovieData(int id, String name, String timing, String[] booked) {
+		public MovieData(int id, String name, String timing, String[] booked, int basePrice) {
 			this.id = id;
 			this.name = name;
 			this.timing = timing;
 			this.bookedSeats = booked;
+			this.basePrice = basePrice;
 		}
 	}
 	
 	//	create and store new movies data into json
-	public boolean createMovieJson(int id, String name, String timing, String booked) {
+	public boolean createMovieJson(int id, String name, String timing, String booked, int basePrice) {
 		try {
-			FileWriter writer = new FileWriter("src/application/database/moviedata.json");
+			FileWriter writer = new FileWriter(path_moviedata);
 			Gson gson = new Gson();
-			MovieData moviedata = new MovieData(id, name, timing, booked.split(","));
+			MovieData moviedata = new MovieData(id, name, timing, booked.split(","), basePrice);
 			gson.toJson(moviedata, writer);
 			writer.close();
 			return true;
@@ -167,7 +168,7 @@ public class JSONUtility {
 	// get movies data from json
 	public MovieData getMovieJson(){
 		try {
-			FileReader reader = new FileReader("src/application/database/moviedata.json");
+			FileReader reader = new FileReader(path_moviedata);
 			Gson gson = new Gson();
 			MovieData moviedata = gson.fromJson(reader, MovieData.class);
 			reader.close();
@@ -181,14 +182,14 @@ public class JSONUtility {
 	//	update movies data into json
 	public boolean updateMovieJson(String[] seats, int price) {
 		try {
-			FileReader reader = new FileReader("src/application/database/moviedata.json");
+			FileReader reader = new FileReader(path_moviedata);
 			Gson gson = new Gson();
 			MovieData moviedata = gson.fromJson(reader, MovieData.class);
 			reader.close();
 
 			// Updation
 			String seatsStr = String.join(", ", seats);
-			FileWriter writer = new FileWriter("src/application/database/moviedata.json");
+			FileWriter writer = new FileWriter(path_moviedata);
 			moviedata.selected = seatsStr;
 			moviedata.selectedSeats = seats;
 			moviedata.price = price;
