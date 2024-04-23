@@ -3,6 +3,8 @@ package application.utils;
 import java.io.InputStream;
 import java.net.URL;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -70,6 +72,23 @@ public class Movie {
 		Image image = loadImageFromUrl(moviePosterPath);
 		return image;
 	}
+	
+//	public ImageView getMoviePoster() {
+//	    Image image = loadImageFromUrl(moviePosterPath);
+//	    ImageView imageView = new ImageView(image);
+//	    
+//	    // Set preserveRatio to false to allow setting fixed width and height
+//	    imageView.setPreserveRatio(false);
+//	    
+//	    // Set the desired width and height
+//	    imageView.setFitWidth(200); // Set the width as per your requirement
+//	    imageView.setFitHeight(300); // Set the height as per your requirement
+//	    
+//	    // Set the anchor plan (position of the image within the ImageView)
+////	    imageView.setAnchor(Anchor.CENTER); // Change CENTER to the desired anchor position
+//	    
+//	    return imageView;
+//	}
 
 	public void setMovieName(String movieName) {
 		this.movieName = movieName;
