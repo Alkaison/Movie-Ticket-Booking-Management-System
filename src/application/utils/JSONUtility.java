@@ -133,11 +133,11 @@ public class JSONUtility {
 
 		return false; // Modification failed
 	}
-
-	public static class MovieData {
-		public int id, price, basePrice;
+	
+	public class MovieData {
+		public int id, price, basePrice, totalPrice = 0;
 		public String name, timing, booked, selected;
-		public String[] bookedSeats, selectedSeats;
+		public String[] bookedSeats = {}, selectedSeats = {};
 
 		// Constructor
 		public MovieData(int id, String name, String timing, String[] booked, int basePrice) {
