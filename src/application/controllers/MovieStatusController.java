@@ -104,67 +104,35 @@ public class MovieStatusController {
 	}
 
 //	NextShow date & time display
-//	String displayNextShow(String nextShow) {
-//		SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-//		SimpleDateFormat sdfOutputDate = new SimpleDateFormat("dd-MM-yyyy");
-//		SimpleDateFormat sdfOutputTime = new SimpleDateFormat("hh:mm a");
-//
-//		String[] showTimings = nextShow.split(",");
-//		Set<String> uniqueTimes = new HashSet<>();
-//		StringBuilder formattedNextShow = new StringBuilder();
-//
-//		for (String timing : showTimings) {
-//			try {
-//
-//				Date parsedDate1 = sdfInput.parse(nextShow.trim());
-//				String formattedDate = sdfOutputDate.format(parsedDate1);
-//				showDate = formattedDate;
-//
-//				Date parsedDate = sdfInput.parse(timing.trim());
-//				String formattedTime = sdfOutputTime.format(parsedDate);
-//
-//				if (!uniqueTimes.contains(formattedTime)) {
-//					uniqueTimes.add(formattedTime);
-//					formattedNextShow.append(formattedTime).append(" , ");
-//				}
-//			} catch (ParseException e) {
-//				System.out.println("Error parsing next show timing: " + e.getMessage());
-//			}
-//		}
-//		return (showDate + " " + formattedNextShow.toString());
-//	}
-	
-	 static String displayNextShow(String nextShow) {
-	        SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	        SimpleDateFormat sdfOutputDate = new SimpleDateFormat("dd-MM-yyyy");
-	        SimpleDateFormat sdfOutputTime = new SimpleDateFormat("hh:mm a");
+	String displayNextShow(String nextShow) {
+		SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		SimpleDateFormat sdfOutputDate = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdfOutputTime = new SimpleDateFormat("hh:mm a");
 
-	        String showDate = "";
-	        Set<String> uniqueTimes = new HashSet<>();
-	        StringBuilder formattedNextShow = new StringBuilder();
+		String[] showTimings = nextShow.split(",");
+		Set<String> uniqueTimes = new HashSet<>();
+		StringBuilder formattedNextShow = new StringBuilder();
 
-	        String[] showTimings = nextShow.split(",");
-	        for (String timing : showTimings) {
-	            try {
-	                Date parsedDate = sdfInput.parse(timing.trim());
-	                String formattedDate = sdfOutputDate.format(parsedDate);
-	                String formattedTime = sdfOutputTime.format(parsedDate);
+		for (String timing : showTimings) {
+			try {
 
-	                if (!showDate.equals(formattedDate)) {
-	                    showDate = formattedDate;
-	                    formattedNextShow.append(showDate).append(" ");
-	                }
+				Date parsedDate1 = sdfInput.parse(nextShow.trim());
+				String formattedDate = sdfOutputDate.format(parsedDate1);
+				showDate = formattedDate;
 
-	                if (!uniqueTimes.contains(formattedTime)) {
-	                    uniqueTimes.add(formattedTime);
-	                    formattedNextShow.append(formattedTime).append(" , ");
-	                }
-	            } catch (ParseException e) {
-	                System.out.println("Error parsing next show timing: " + e.getMessage());
-	            }
-	        }
-	        return formattedNextShow.toString();
-	    }
+				Date parsedDate = sdfInput.parse(timing.trim());
+				String formattedTime = sdfOutputTime.format(parsedDate);
+
+				if (!uniqueTimes.contains(formattedTime)) {
+					uniqueTimes.add(formattedTime);
+					formattedNextShow.append(formattedTime).append(" , ");
+				}
+			} catch (ParseException e) {
+				System.out.println("Error parsing next show timing: " + e.getMessage());
+			}
+		}
+		return (showDate + " " + formattedNextShow.toString());
+	}
 
 	List<Movie> searchMoviesInDatabase(String searchQuery, String movieTitle) {
 		List<Movie> movies = new ArrayList<>();

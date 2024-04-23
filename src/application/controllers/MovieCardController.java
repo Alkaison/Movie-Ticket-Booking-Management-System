@@ -1,24 +1,18 @@
 package application.controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import application.utils.Movie;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MovieCardController{
+public class MovieCardController {
 
 	Stage stage;
 	Scene scene;
@@ -58,18 +52,10 @@ public class MovieCardController{
 
 //   set to display data to screen
 	public void setData(Movie movie) {
-	    Image moviePoster = (Image) movie.getMoviePoster();
-	    
-	    setMovieImg.setImage(moviePoster);
-//	    setMovieImg.setFitWidth(300); // Set the width as per your requirement
-//	    setMovieImg.setFitHeight(400); // Set the height as per your requirement
-//	    setMovieImg.setOpacity(1); 
-	    
-
-	    setMovieName.setText(movie.getMovieName());
-	    setMovieRating.setText(movie.getMovieRating());
-	    setMovieGener.setText(movie.getMovieGener());
-	    setMovieReleaseDate.setText(movie.getMovieRealeseDate());
+		setMovieImg.setImage(movie.getMoviePoster());
+		setMovieName.setText(movie.getMovieName());
+		setMovieRating.setText(movie.getMovieRating());
+		setMovieGener.setText(movie.getMovieGener());
+		setMovieReleaseDate.setText(movie.getMovieRealeseDate());
 	}
-
 }

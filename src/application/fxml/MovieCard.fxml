@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,14 +10,11 @@
 <?import javafx.scene.text.Text?>
 <?xml-model ?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#click" pickOnBounds="false" prefHeight="335.0" prefWidth="251.0" style="-fx-background-color: #011522;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MovieCardController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#click" pickOnBounds="false" prefHeight="335.0" prefWidth="251.0" style="-fx-background-color: #011522;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MovieCardController">
    <children>
-      <AnchorPane fx:id="MovieImgContainer" prefHeight="198.0" prefWidth="251.0" style="-fx-background-color: whitesmoke;">
+      <AnchorPane fx:id="MovieImgContainer" prefHeight="234.0" prefWidth="251.0" style="-fx-background-color: whitesmoke;">
          <children>
-            <ImageView fx:id="setMovieImg" fitHeight="231.0" fitWidth="251.0" pickOnBounds="true" preserveRatio="true">
-               <viewport>
-                  <Rectangle2D minX="500.0" minY="800.0" />
-               </viewport></ImageView>
+            <ImageView fx:id="setMovieImg" fitHeight="234.0" fitWidth="251.0" pickOnBounds="true" preserveRatio="true" />
          </children></AnchorPane>
       <Text fx:id="setMovieName" fill="WHITE" layoutX="14.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movie Name" wrappingWidth="137.0">
          <font>
