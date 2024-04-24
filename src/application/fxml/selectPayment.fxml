@@ -57,18 +57,6 @@
                         <Font size="43.0" />
                     </font>
                 </Label>
-                <Button fx:id="paymentButton2" alignment="BASELINE_LEFT" contentDisplay="RIGHT" graphicTextGap="380.0" layoutX="59.0" layoutY="530.0" mnemonicParsing="false" onAction="#handleCashOptionClick" onMouseEntered="#hover" onMouseExited="#Removehover" prefHeight="70.0" prefWidth="552.0" styleClass="PaymentButton" text="Cash" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../resources/payment_wallet.jpg" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <font>
-                        <Font size="32.0" />
-                    </font>
-                </Button>
                 <Button fx:id="paymentButton3" alignment="BASELINE_LEFT" contentDisplay="RIGHT" graphicTextGap="200.0" layoutX="59.0" layoutY="440.0" mnemonicParsing="false" onAction="#handleCreditDebitCardOptionClick" onMouseEntered="#hover" onMouseExited="#Removehover" prefHeight="64.0" prefWidth="552.0" styleClass="PaymentButton" text="Credit/Debit Card" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="48.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
@@ -81,7 +69,7 @@
                         <Font size="32.0" />
                     </font>
                 </Button>
-            <Button fx:id="cancelPaymentBtn" layoutX="201.0" layoutY="620.0" minHeight="44.0" minWidth="120.0" mnemonicParsing="false" onAction="#handlePaymentCancelledBtnClicked" style="-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12;" text="Cancel" textAlignment="CENTER" AnchorPane.leftAnchor="68.0">
+            <Button fx:id="cancelPaymentBtn" layoutX="68.0" layoutY="544.0" minHeight="44.0" minWidth="120.0" mnemonicParsing="false" onAction="#handlePaymentCancelledBtnClicked" style="-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12;" text="Cancel" textAlignment="CENTER" AnchorPane.leftAnchor="68.0">
                <font>
                   <Font name="Calibri Bold" size="22.0" />
                </font>

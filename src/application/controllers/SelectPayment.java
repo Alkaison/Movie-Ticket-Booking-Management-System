@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.utils.JSONUtility;
+import application.utils.JSONUtility.MovieData;
+
 public class SelectPayment implements Initializable {
 
 	private Stage stage;
@@ -74,9 +77,12 @@ public class SelectPayment implements Initializable {
 	// title and price for movie tickets
 	@FXML
 	void setTitleAndPrice() {
+		JSONUtility json = new JSONUtility();
+		MovieData movieData = json.getMovieJson();
 		// Code for Setting the Movie Title From Database
-		MovieTitle.setText("Movie Title");
-		Price.setText("Total Amount: Rs XXX/- ");
+		MovieTitle.setText(movieData.name);
+		String price = "₹ " + Integer.toString(movieData.totalPrice);
+		Price.setText(price);
 	}
 
 	@FXML
@@ -97,8 +103,18 @@ public class SelectPayment implements Initializable {
 		stage.show();
 	}
 
-	public void handleCreditDebitCardOptionClick(ActionEvent event) {
+	public void handleCreditDebitCardOptionClick(ActionEvent event) throws IOException{
 		System.out.println("Credit Debit Selected");
+
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/CreditCard.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
+
+		stage.setMaximized(true);
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	public void handleCashOptionClick(ActionEvent event) {

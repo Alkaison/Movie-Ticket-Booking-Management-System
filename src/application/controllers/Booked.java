@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class Booked {
 	@FXML
-	private Button backbtn;
+	private Button backbtn, downloadTicketBtn;
 
 	private Stage stage;
 	private Scene scene;
@@ -28,6 +28,11 @@ public class Booked {
 		stage.setMaximized(true);
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	public void downloadTicketBtn(ActionEvent event) throws IOException {
+		TicketDownloadController controller = new TicketDownloadController();
+		controller.GeneratePDF(e);
 	}
 
 }

@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class JSONUtility {
 
@@ -135,7 +134,7 @@ public class JSONUtility {
 
 		return false; // Modification failed
 	}
-	
+
 	public class MovieData {
 		public int id, price, basePrice, totalPrice = 0;
 		public String name, timing, booked, selected;
@@ -178,7 +177,8 @@ public class JSONUtility {
 			for (int i = 0; i < arr.size(); i++) {
 				booked[i] = arr.get(i).getAsString();
 			}
-			MovieData movieData = new MovieData(jsonObject.get("id").getAsInt(), jsonObject.get("name").getAsString(), jsonObject.get("timing").getAsString(), booked, jsonObject.get("basePrice").getAsInt());
+			MovieData movieData = new MovieData(jsonObject.get("id").getAsInt(), jsonObject.get("name").getAsString(),
+					jsonObject.get("timing").getAsString(), booked, jsonObject.get("basePrice").getAsInt());
 			reader.close();
 			return movieData;
 		} catch (IOException e) {
@@ -207,6 +207,20 @@ public class JSONUtility {
 		} catch (IOException e) {
 			System.out.println("Error updating movie data: " + e.getMessage());
 			return false;
+		}
+	}
+
+	public static User getUserData(){
+		try {
+			FileReader reader = new FileReader(path_userdata);
+			JsonElement jsonElement = JsonParser.parseReader(reader);
+			JsonObject jsonObject = jsonElement.getAsJsonObject();
+			reader.close();
+			User user = new User(jsonObject.get("userId").getAsInt(), jsonObject.get("firstName").getAsString(), jsonObject.get("lastName").getAsString(), jsonObject.get("email").getAsString(), jsonObject.get("phoneNumber").getAsString(), jsonObject.get("cityName").getAsString());
+			return user;
+		} catch (IOException e) {
+			System.out.println("Error getting user data: " + e.getMessage());
+			return null;
 		}
 	}
 }
