@@ -10,6 +10,7 @@ import java.util.List;
 import org.sqlite.SQLiteDataSource;
 
 import application.utils.JSONUtility.MovieData;
+import application.utils.JSONUtility.User;
 
 public class DBUtility {
 
@@ -367,25 +368,37 @@ public class DBUtility {
 		return ticketCounts;
 	}
 
-	public boolean updateBookingData () {
+	public static boolean updateBookingData () {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			JSONUtility json= new JSONUtility();
+			User user = JSONUtility.getUserData();
 			MovieData moviedata = json.getMovieJson();
+
+			String seatsStr = String.join(", ", moviedata.selectedSeats);
+
 			SQLiteDataSource ds = new SQLiteDataSource();
 			ds.setUrl(DB_URL);
-
 			conn = ds.getConnection();
-
-			String query = "UPDATE booked_ticket SET = ? AND password = ?";
+			String query = "INSERT INTO booked_ticket (userId, movieId, seatNumbers, seatClass, numberOfSeats, showTime, perPrice, totalPrice, currentStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, email);
-			pstmt.setString(2, encryptedPassword);
-			while (rs.next()) {
-			}
+			pstmt.setInt(1, user.userId);
+			pstmt.setInt(2, moviedata.id);
+			pstmt.setString(3, seatsStr);
+			pstmt.setString(4, "Normal");
+			pstmt.setInt(5, moviedata.selectedSeats.length);
+			pstmt.setString(6, moviedata.timing);
+			pstmt.setInt(7, moviedata.basePrice);
+			pstmt.setInt(8, moviedata.totalPrice);
+			pstmt.setString(9, "Booked");
+
+			int rowsInserted = pstmt.executeUpdate();
+			// Check if the insert was successful
+			return rowsInserted > 0;
 		} catch (Exception e) {
 			System.out.println(e.toString());
+			return false;
 		}
 	}
 

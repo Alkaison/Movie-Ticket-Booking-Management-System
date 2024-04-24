@@ -209,4 +209,18 @@ public class JSONUtility {
 			return false;
 		}
 	}
+
+	public static User getUserData(){
+		try {
+			FileReader reader = new FileReader(path_userdata);
+			JsonElement jsonElement = JsonParser.parseReader(reader);
+			JsonObject jsonObject = jsonElement.getAsJsonObject();
+			reader.close();
+			User user = new User(jsonObject.get("userId").getAsInt(), jsonObject.get("firstName").getAsString(), jsonObject.get("lastName").getAsString(), jsonObject.get("email").getAsString(), jsonObject.get("phoneNumber").getAsString(), jsonObject.get("cityName").getAsString());
+			return user;
+		} catch (IOException e) {
+			System.out.println("Error getting user data: " + e.getMessage());
+			return null;
+		}
+	}
 }
