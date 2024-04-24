@@ -70,7 +70,7 @@ public class CreditCard {
 	// Handle Cancel BUtton
 	@FXML
 	void HandleCancelButton(ActionEvent event) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("/application/fxml/Login.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/SelectPayment.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		double currentWidth = stage.getWidth();
 		double currentHeight = stage.getHeight();
