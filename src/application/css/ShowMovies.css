@@ -10,7 +10,6 @@
 
 #anchor{
 	-fx-background-radius: 10;  /*top-left , top-right , bottom-right , bottom-left */
-  	-fx-background-color: #c1121f;
 	-fx-effect: dropshadow(three-pass-box , grey, 10, 0.5, 3, 3); /* width, opacity ,x-move , y-move*/
 }
 #anchor:hover {	
@@ -18,8 +17,11 @@
     -fx-scale-x: 1.05; 
 }
 #setMovieImg{
-	-fx-background-radius: 10 10 0 0;	
+    -fx-fit-to-width: 100%;
+    -fx-fit-to-height: 100%;
+    
 }
 #MovieImgContainer{
-	-fx-background-radius: 10 10 0 0;
+	-fx-background-radius: 10 10 0 0;	
+	-fx-background-color:  #011522;
 }
