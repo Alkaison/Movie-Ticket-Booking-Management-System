@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -42,6 +43,18 @@ public class MovieStatusController {
 
 	@FXML
 	private Pane movieImg;
+	
+	@FXML
+	private ImageView moviePoster;
+	
+    @FXML
+    private Text baseClassTicket;
+
+    @FXML
+    private Text secondClassTicket;
+
+    @FXML
+    private Text firstClassTicket;
 
 	private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
 
@@ -69,8 +82,9 @@ public class MovieStatusController {
 		stage.show();
 	}
 
-	public void setMovieData(String name, String gener, String rating, String releaseDate) {
+	public void setMovieData(String name, String gener, String rating, String releaseDate ) {
 		try {
+			
 			movieTitle.setText(name);
 			movieGener.setText(gener);
 			movieRating.setText("Rated: " + rating + " / 10 🌠");
@@ -86,7 +100,7 @@ public class MovieStatusController {
 	public void setMovieDetails(String movieTitle) {
 		String searchQuery = "SELECT * FROM movies WHERE name = ?";
 		List<Movie> searchResults = searchMoviesInDatabase(searchQuery, movieTitle);
-
+        
 		if (!searchResults.isEmpty()) {
 			Movie selectedMovie = searchResults.get(0);
 
@@ -94,7 +108,9 @@ public class MovieStatusController {
 			movieAvailableSeat.setText(String.valueOf(selectedMovie.getTotalSeat() - selectedMovie.getBookedSeat()));
 			movieNextShow.setText(displayNextShow(selectedMovie.getNextShow()));
 			movieActors.setText(selectedMovie.getMovieActor());
-
+			
+			moviePoster.setImage(selectedMovie.getMoviePoster());
+			
 		} else {
 			System.out.println("Movie not found!");
 		}

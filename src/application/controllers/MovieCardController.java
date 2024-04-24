@@ -40,8 +40,9 @@ public class MovieCardController {
 		MovieStatusController controller = loader.getController();
 
 		// Pass the movie details to MovieStatusController
-		controller.setMovieData(setMovieName.getText(), setMovieGener.getText(), setMovieRating.getText(),
-				setMovieReleaseDate.getText());
+		 controller.setMovieData(setMovieName.getText(), setMovieGener.getText(), setMovieRating.getText(),
+	                setMovieReleaseDate.getText() );
+
 
 		Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		double currentWidth = stage.getWidth();
