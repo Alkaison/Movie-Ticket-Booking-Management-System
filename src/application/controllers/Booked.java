@@ -8,9 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Booked {
+
+	@FXML
+	private AnchorPane downloadTicketBt;
+
 	@FXML
 	private Button backbtn, downloadTicketBtn;
 
@@ -30,9 +35,9 @@ public class Booked {
 		stage.show();
 	}
 
-	public void downloadTicketBtn(ActionEvent event) throws IOException {
+	public void downloadTicket(ActionEvent event) throws IOException {
 		TicketDownloadController controller = new TicketDownloadController();
-		controller.GeneratePDF(e);
+		controller.GeneratePDF(event);
 	}
 
 }
