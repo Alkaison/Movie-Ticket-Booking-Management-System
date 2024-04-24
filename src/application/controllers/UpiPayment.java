@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 
+import application.utils.JSONUtility;
+import application.utils.JSONUtility.MovieData;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -104,7 +106,10 @@ public class UpiPayment {
 	// Getting Price for Payment
 	@FXML
 	void GetPrice() {
-		Price.setText(" ₹ 800.00");
+		JSONUtility json = new JSONUtility();
+		MovieData movieData = json.getMovieJson();
+		String price = "₹ " + Integer.toString(movieData.totalPrice);
+		Price.setText(price);
 	}
 
 	// Cancel BUtton -->
@@ -124,13 +129,24 @@ public class UpiPayment {
 
 	// Handle Pin ---->
 	@FXML
-	void handlePayButton(ActionEvent event) {
+	void handlePayButton(ActionEvent event) throws IOException {
 		ValidPin.setVisible(false);
 		Pin = showp1.getText() + showp2.getText() + showp3.getText() + showp4.getText() + showp5.getText()
 				+ showp6.getText();
 		System.out.println(Pin);
 		if (Pin.isEmpty() | Pin.length() < 6) {
 			ValidPin.setVisible(true);
+		} else if (Pin == "123456") {
+			ValidPin.setVisible(false);
+			root = FXMLLoader.load(getClass().getResource("/application/fxml/Booked.fxml"));
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			double currentWidth = stage.getWidth();
+			double currentHeight = stage.getHeight();
+			scene = new Scene(root, currentWidth, currentHeight);
+
+			stage.setMaximized(true);
+			stage.setScene(scene);
+			stage.show();
 		}
 
 	}

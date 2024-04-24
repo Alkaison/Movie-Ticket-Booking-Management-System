@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.utils.JSONUtility;
+import application.utils.JSONUtility.MovieData;
+
 public class SelectPayment implements Initializable {
 
 	private Stage stage;
@@ -74,9 +77,12 @@ public class SelectPayment implements Initializable {
 	// title and price for movie tickets
 	@FXML
 	void setTitleAndPrice() {
+		JSONUtility json = new JSONUtility();
+		MovieData movieData = json.getMovieJson();
 		// Code for Setting the Movie Title From Database
-		MovieTitle.setText("Movie Title");
-		Price.setText("Total Amount: Rs XXX/- ");
+		MovieTitle.setText(movieData.name);
+		String price = "₹ " + Integer.toString(movieData.totalPrice);
+		Price.setText(price);
 	}
 
 	@FXML

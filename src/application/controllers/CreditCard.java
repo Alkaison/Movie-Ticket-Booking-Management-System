@@ -64,7 +64,10 @@ public class CreditCard {
 
 	public void getMoviePrice() {
 		// Function to Get Movie Price
-		MoviePrice.setText("Rs. 278.00");
+        JSONUtility json = new JSONUtility();
+		MovieData movieData = json.getMovieJson();
+		String price = "₹ " + Integer.toString(movieData.totalPrice);
+		MoviePrice.setText(price);
 	}
 
 	// Handle Cancel BUtton
