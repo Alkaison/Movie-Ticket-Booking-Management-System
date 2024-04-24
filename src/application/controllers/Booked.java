@@ -35,7 +35,7 @@ public class Booked {
 		stage.show();
 	}
 
-	public void downloadTicket(ActionEvent event) throws IOException {
+	public void downloadTicket(ActionEvent e) throws IOException {
 		TicketDownloadController controller = new TicketDownloadController();
 		controller.GoToTicketPage(e);
 	}
