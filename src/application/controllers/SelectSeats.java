@@ -35,7 +35,7 @@ public class SelectSeats implements Initializable {
 
 	public String selectedSeats[] = {};
 
-	public int totalPrice = 0;
+	public int totalPrice = 0, basePrice = 0;
 
 	@FXML
 	// private GridPane selectSeatsWrap;
@@ -68,19 +68,20 @@ public class SelectSeats implements Initializable {
 	}
 
 	public void handleProceedToPaymentPageClick(ActionEvent event) throws IOException {
-		
-		util.updateMovieJson(selectedSeats, totalPrice);
-		MovieData moviedata = util.getMovieJson();
-
-		root = FXMLLoader.load(getClass().getResource("/application/fxml/SelectPayment.fxml"));
-		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		double currentWidth = stage.getWidth();
-		double currentHeight = stage.getHeight();
-		scene = new Scene(root, currentWidth, currentHeight);
-
-		stage.setMaximized(true);
-		stage.setScene(scene);
-		stage.show();
+		if(selectedSeats.length > 0){
+			util.updateMovieJson(selectedSeats, totalPrice);
+			MovieData moviedata = util.getMovieJson();
+	
+			root = FXMLLoader.load(getClass().getResource("/application/fxml/SelectPayment.fxml"));
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			double currentWidth = stage.getWidth();
+			double currentHeight = stage.getHeight();
+			scene = new Scene(root, currentWidth, currentHeight);
+	
+			stage.setMaximized(true);
+			stage.setScene(scene);
+			stage.show();
+		}
 	}
 
 	public String getSeatCode(int num) {
@@ -118,6 +119,15 @@ public class SelectSeats implements Initializable {
 		return contains;
 	}
 
+	public int seatLevel(String str){
+		if(str.charAt(0) == 'A') {
+			return 2;
+		}else if(str.charAt(0) == 'H') {
+			return 1;
+		}
+		return 0;
+	}
+
 	public String[] getUpdatedSelection(String[] orgArr, int method, String el) {
 		String[] newArr = {};
 		// Addition of Seat
@@ -145,7 +155,7 @@ public class SelectSeats implements Initializable {
 			cancelBtn.fire();
 		}
 
-		int basePrice = moviedata.basePrice;
+		basePrice = moviedata.basePrice;
 
 		premiumPrice.setText("Rs. " + Integer.toString(basePrice + 50));
 		normalPrice.setText("Rs. " + Integer.toString(basePrice));
@@ -180,7 +190,6 @@ public class SelectSeats implements Initializable {
 				btn.setOnAction(event -> handleSelection(event));
 			}
 			if (i >= 190) {
-				totalPrice = !isBooked ? totalPrice + basePrice + 50 : totalPrice;
 				selectSeatsWrap1.add(btn, i % 10, i / 10);
 			} else if (i < 10) {
 				totalPrice = !isBooked ? totalPrice + basePrice + 70 : totalPrice;
@@ -207,6 +216,7 @@ public class SelectSeats implements Initializable {
 			selectedSeats = Arrays.stream(selectedSeats).filter(el -> el != null).toArray(String[]::new);
 			btn.getStyleClass().remove("selected-seats");
 		} else {
+			// totalPrice =  ? totalPrice + basePrice + 50 : totalPrice;
 			selectedSeats = Arrays.copyOf(selectedSeats, selectedSeats.length + 1).clone();
 			selectedSeats[selectedSeats.length - 1] = btn.getText();
 			btn.getStyleClass().add("selected-seats");

@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.sqlite.SQLiteDataSource;
 
+import application.utils.JSONUtility.MovieData;
+
 public class DBUtility {
 
 	private static final String DB_URL = "jdbc:sqlite:src/application/database/movie_ticket_booking.db";
@@ -364,5 +366,28 @@ public class DBUtility {
 		}
 		return ticketCounts;
 	}
+
+	public boolean updateBookingData () {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			JSONUtility json= new JSONUtility();
+			MovieData moviedata = json.getMovieJson();
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(DB_URL);
+
+			conn = ds.getConnection();
+
+			String query = "UPDATE booked_ticket SET = ? AND password = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			pstmt.setString(2, encryptedPassword);
+			while (rs.next()) {
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+	}
+
 
 }

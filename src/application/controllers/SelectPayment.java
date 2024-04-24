@@ -97,8 +97,18 @@ public class SelectPayment implements Initializable {
 		stage.show();
 	}
 
-	public void handleCreditDebitCardOptionClick(ActionEvent event) {
+	public void handleCreditDebitCardOptionClick(ActionEvent event) throws IOException{
 		System.out.println("Credit Debit Selected");
+
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/CreditCard.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
+
+		stage.setMaximized(true);
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	public void handleCashOptionClick(ActionEvent event) {
