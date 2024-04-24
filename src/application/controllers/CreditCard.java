@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+import application.utils.JSONUtility;
+import application.utils.JSONUtility.MovieData;
 import javafx.event.ActionEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -86,7 +88,7 @@ public class CreditCard {
 
 	// Handle Payment BUtton
 	@FXML
-	void PaybuttonHandler(ActionEvent event) {
+	void PaybuttonHandler(ActionEvent event) throws IOException {
 		System.out.println("Payment");
 		if (CreditCardInput.getLength() > 19 || CreditCardInput.getLength() < 19) {
 			Validity.setVisible(true);
@@ -96,6 +98,15 @@ public class CreditCard {
 			Validity.setVisible(true);
 		} else {
 			Validity.setVisible(false);
+            root = FXMLLoader.load(getClass().getResource("/application/fxml/Booked.fxml"));
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			double currentWidth = stage.getWidth();
+			double currentHeight = stage.getHeight();
+			scene = new Scene(root, currentWidth, currentHeight);
+
+			stage.setMaximized(true);
+			stage.setScene(scene);
+			stage.show();
 		}
 	}
 
