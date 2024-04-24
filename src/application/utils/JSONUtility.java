@@ -2,6 +2,7 @@ package application.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class JSONUtility {
 
@@ -168,8 +170,15 @@ public class JSONUtility {
 	public MovieData getMovieJson() {
 		try {
 			FileReader reader = new FileReader(path_moviedata);
-			Gson gson = new Gson();
-			MovieData movieData = gson.fromJson(reader, MovieData.class);
+			// MovieData movieData = gson.fromJson(reader, MovieData.class);
+			JsonElement jsonElement = JsonParser.parseReader(reader);
+			JsonObject jsonObject = jsonElement.getAsJsonObject();
+			JsonArray arr = jsonObject.getAsJsonArray("bookedSeats");
+			String[] booked = new String[arr.size()];
+			for (int i = 0; i < arr.size(); i++) {
+				booked[i] = arr.get(i).getAsString();
+			}
+			MovieData movieData = new MovieData(jsonObject.get("id").getAsInt(), jsonObject.get("name").getAsString(), jsonObject.get("timing").getAsString(), booked, jsonObject.get("basePrice").getAsInt());
 			reader.close();
 			return movieData;
 		} catch (IOException e) {
