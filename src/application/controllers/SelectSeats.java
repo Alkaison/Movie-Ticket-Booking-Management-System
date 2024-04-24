@@ -70,6 +70,7 @@ public class SelectSeats implements Initializable {
 	public void handleProceedToPaymentPageClick(ActionEvent event) throws IOException {
 		if(selectedSeats.length > 0){
 			util.updateMovieJson(selectedSeats, totalPrice);
+			@SuppressWarnings("unused")
 			MovieData moviedata = util.getMovieJson();
 	
 			root = FXMLLoader.load(getClass().getResource("/application/fxml/SelectPayment.fxml"));
