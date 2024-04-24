@@ -30,9 +30,9 @@ public class Booked {
 		stage.show();
 	}
 
-	public void downloadTicketBtn(ActionEvent event) throws IOException {
+	public void downloadTicketBtn(ActionEvent e) throws IOException {
 		TicketDownloadController controller = new TicketDownloadController();
-		controller.GeneratePDF(e);
+		controller.GoToTicketPage(e);
 	}
 
 }

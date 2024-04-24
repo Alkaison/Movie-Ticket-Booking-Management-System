@@ -37,6 +37,7 @@ public class Main extends Application {
 			// set scene and start application
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

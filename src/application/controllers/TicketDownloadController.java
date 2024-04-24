@@ -246,4 +246,9 @@ public class TicketDownloadController {
 			System.out.println(e1.toString());
 		}
 	}
+
+	public void GoToTicketPage() {
+		GoToTicketPage(null);
+		
+	}
 }
