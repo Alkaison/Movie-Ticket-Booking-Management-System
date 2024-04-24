@@ -134,9 +134,11 @@ public class UpiPayment {
 		Pin = showp1.getText() + showp2.getText() + showp3.getText() + showp4.getText() + showp5.getText()
 				+ showp6.getText();
 		System.out.println(Pin);
-		if (Pin.isEmpty() | Pin.length() < 6) {
-			ValidPin.setVisible(true);
-		} else if (Pin == "123456") {
+		System.out.println("abhdsbdh");
+		int pin = Integer.parseInt(Pin);
+		
+		if (pin == 123456) {
+			System.out.println("got pin correcgt");
 			ValidPin.setVisible(false);
 			root = FXMLLoader.load(getClass().getResource("/application/fxml/Booked.fxml"));
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

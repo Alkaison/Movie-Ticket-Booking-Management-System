@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="downloadTicketBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1200.0" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.Booked">
+<AnchorPane fx:id="downloadTicketBt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1200.0" style="-fx-background-color: #1f1f1f; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.Booked">
    <children>
       <Label alignment="CENTER" layoutX="479.0" layoutY="41.0" prefHeight="57.0" prefWidth="297.0" style="-fx-background-color: green; -fx-background-radius: 15;" text="Ticket Booked Successfully" textFill="WHITE">
          <font>
@@ -24,7 +24,7 @@
             <Image url="@../resources/icon.png" />
          </image>
       </ImageView>
-      <Button id="#goBackBtn" alignment="BOTTOM_LEFT" layoutX="547.0" layoutY="481.0" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: red; -fx-background-radius: 10;" text="Go Back Home" textFill="WHITE">
+      <Button alignment="BOTTOM_LEFT" layoutX="547.0" layoutY="481.0" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: red; -fx-background-radius: 10;" text="Go Back Home" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
@@ -34,7 +34,7 @@
             <Font name="Book Antiqua" size="24.0" />
          </font>
       </Label>
-      <Button id="#goBackBtn" fx:id="downloadTicketBtn" alignment="BOTTOM_LEFT" layoutX="542.0" layoutY="566.0" mnemonicParsing="false" onAction="#downloadTicket" style="-fx-background-color: blue; -fx-background-radius: 10;" text="Download Ticket" textFill="WHITE">
+      <Button fx:id="downloadTicketBtn" alignment="BOTTOM_LEFT" layoutX="542.0" layoutY="566.0" mnemonicParsing="false" onAction="#downloadTicket" style="-fx-background-color: blue; -fx-background-radius: 10;" text="Download Ticket" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
