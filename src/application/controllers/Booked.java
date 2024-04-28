@@ -1,6 +1,8 @@
 package application.controllers;
 
 import java.io.IOException;
+
+import application.utils.DBUtility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,8 +38,24 @@ public class Booked {
 	}
 
 	public void downloadTicket(ActionEvent e) throws IOException {
-		TicketDownloadController controller = new TicketDownloadController();
-		controller.GoToTicketPage(e);
+		try {
+			DBUtility.updateBookingData();
+			TicketDownloadController controller = new TicketDownloadController();
+			controller.GoToTicketPage1(e);
+		} catch (Exception e1) {
+			// TODO: handle exception
+			System.out.println("Error updating booking data");
+			root = FXMLLoader.load(getClass().getResource("/application/fxml/Dashboard.fxml"));
+			stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			double currentWidth = stage.getWidth();
+			double currentHeight = stage.getHeight();
+			scene = new Scene(root, currentWidth, currentHeight);
+
+			stage.setMaximized(true);
+			stage.setScene(scene);
+			stage.show();
+
+		}
 	}
 
 }

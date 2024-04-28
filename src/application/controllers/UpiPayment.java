@@ -108,7 +108,7 @@ public class UpiPayment {
 	void GetPrice() {
 		JSONUtility json = new JSONUtility();
 		MovieData movieData = json.getMovieJson();
-		String price = "₹ " + Integer.toString(movieData.totalPrice);
+		String price = "₹ XXX";
 		Price.setText(price);
 	}
 

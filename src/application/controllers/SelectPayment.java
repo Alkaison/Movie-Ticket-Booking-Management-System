@@ -81,7 +81,7 @@ public class SelectPayment implements Initializable {
 		MovieData movieData = json.getMovieJson();
 		// Code for Setting the Movie Title From Database
 		MovieTitle.setText(movieData.name);
-		String price = "₹ " + Integer.toString(movieData.totalPrice);
+		String price = "₹ XXX";
 		Price.setText(price);
 	}
 

@@ -1,5 +1,6 @@
 package application.controllers;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -196,7 +197,7 @@ public class TicketDownloadController {
 	public void GeneratePDF(ActionEvent e) {
 		try {
 
-			Parent root = FXMLLoader.load(getClass().getResource("Ticket.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/application/fxml/TicketDownload.fxml"));
 
 			PrinterJob job = PrinterJob.createPrinterJob();
 			if (job != null) {
@@ -216,13 +217,31 @@ public class TicketDownloadController {
 	// Add this function on previous Screen/Window button
 	private Stage stage;
 
+	void goBackToDashboard(ActionEvent event) throws IOException {
+		Stage stage;
+		Scene scene;
+		Parent root;
+
+		root = FXMLLoader.load(getClass().getResource("/application/fxml/Dashboard.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		double currentWidth = stage.getWidth();
+		double currentHeight = stage.getHeight();
+		scene = new Scene(root, currentWidth, currentHeight);
+
+		stage.setScene(scene);
+		stage.show();
+	}
+
 	@FXML
 	void GoToTicketPage(ActionEvent e) {
 		try {
 			this.stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 
-			AnchorPane root = FXMLLoader.load(getClass().getResource("TicketDownload.fxml"));
-			Scene scene = new Scene(root);
+			AnchorPane root = FXMLLoader.load(getClass().getResource("/application/fxml/TicketDownload.fxml"));
+			double currentWidth = stage.getWidth();
+			double currentHeight = stage.getHeight();
+
+			Scene scene = new Scene(root, currentWidth, currentHeight);
 
 			Button Ticket_Download_btn = new Button("Download");
 			Ticket_Download_btn.setLayoutX(300);
@@ -237,6 +256,11 @@ public class TicketDownloadController {
 				GeneratePDF(event);
 
 			});
+
+			Go_Home_btn.setOnAction(event -> {
+
+			});
+
 			root.getChildren().addAll(Ticket_Download_btn, Go_Home_btn);
 
 			stage.setScene(scene);
@@ -247,8 +271,8 @@ public class TicketDownloadController {
 		}
 	}
 
-	public void GoToTicketPage() {
-		GoToTicketPage(null);
-		
+	public void GoToTicketPage1(ActionEvent e) {
+		GoToTicketPage(e);
+
 	}
 }
