@@ -5,11 +5,9 @@
   "totalPrice": 0,
   "name": "",
   "timing": "",
-  "selected": "19C, 20C, 1D",
+  "selected": "1G",
   "bookedSeats": [],
   "selectedSeats": [
-    "19C",
-    "20C",
-    "1D"
+    "1G"
   ]
 }

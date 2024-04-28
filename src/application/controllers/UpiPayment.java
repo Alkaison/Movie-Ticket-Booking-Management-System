@@ -107,6 +107,7 @@ public class UpiPayment {
 	@FXML
 	void GetPrice() {
 		JSONUtility json = new JSONUtility();
+		@SuppressWarnings("unused")
 		MovieData movieData = json.getMovieJson();
 		String price = "₹ XXX";
 		Price.setText(price);
