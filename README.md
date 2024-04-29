@@ -124,7 +124,7 @@ Welcome to the Movie Ticket Booking System! This project, developed as part of t
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Alkaison/Movie-Ticket-Booking-System
+   git clone https://github.com/Alkaison/Movie-Ticket-Booking-System MovieTicketBookingManagementSystem
    ```
 
 2. **Open the project in Eclipse IDE for Java Developers.**
